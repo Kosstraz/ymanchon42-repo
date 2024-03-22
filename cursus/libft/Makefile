@@ -56,7 +56,7 @@ SRCS_BONUS =	./bonus/ft_lstadd_back_bonus.c \
 OBJS = $(patsubst %.c,%.o,$(SRCS))
 OBJS_BONUS = $(patsubst %.c,%.o,$(SRCS_BONUS))
 
-FLAGS = -Wall -Wextra #-Werror
+FLAGS = -Wall -Wextra -Werror
 
 $(NAME): $(OBJS)
 	ar -rcs $(NAME) $(OBJS)
