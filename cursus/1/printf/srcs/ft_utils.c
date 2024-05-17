@@ -6,11 +6,11 @@
 /*   By: ymanchon <ymanchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 15:09:26 by ymanchon          #+#    #+#             */
-/*   Updated: 2024/03/18 15:10:22 by ymanchon         ###   ########.fr       */
+/*   Updated: 2024/05/16 16:25:00 by ymanchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/ft_libprintf.h"
+#include "../includes/libft_printf.h"
 #include <unistd.h>
 #include <stdlib.h>
 
@@ -23,6 +23,7 @@ int	ft_strlen(const char *str)
 		i++;
 	return (i);
 }
+
 void	ft_putstr(const char *str)
 {
 	write(1, str, ft_strlen(str));

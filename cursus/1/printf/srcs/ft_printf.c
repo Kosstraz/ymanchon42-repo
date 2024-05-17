@@ -6,11 +6,11 @@
 /*   By: ymanchon <ymanchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 15:09:31 by ymanchon          #+#    #+#             */
-/*   Updated: 2024/03/21 15:50:52 by ymanchon         ###   ########.fr       */
+/*   Updated: 2024/05/16 16:25:37 by ymanchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/ft_libprintf.h"
+#include "../includes/libft_printf.h"
 #include <stdarg.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -23,6 +23,8 @@ static void	ft_printf_handle(const char *msg, va_list *args, int *i)
 	c = msg[(*i)];
 	if (c == 'i' || c == 'd' || c == 'c')
 		ft_putnbr(va_arg(*args, int));
+	else if (c == 'u')
+		ft_putunbr(va_arg(*args, unsigned int));
 	else if (c == 's')
 		ft_putstr(va_arg(*args, char *));
 	else if (c == 'p')
@@ -38,8 +40,8 @@ static void	ft_printf_handle(const char *msg, va_list *args, int *i)
 int	ft_printf(const char *msg, ...)
 {
 	int			i;
+	va_list		args;
 
-	va_list args;
 	va_start(args, msg);
 	i = 0;
 	while (msg[i])

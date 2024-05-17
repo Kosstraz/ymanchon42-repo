@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/ft_libprintf.h"
+#include "../includes/libft_printf.h"
 #include <stdlib.h>
 
 char	*ft_addth(const void *ptr, const char *base)
