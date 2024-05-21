@@ -24,7 +24,7 @@ OBJS =	$(SRCS:%.c=$(OBJS_DIR)/%.o)
 
 INCLUDES = -I .
 
-CFLAGS =	-Wall -Wextra -Werror
+CFLAGS =	-Wall -Wextra #-Werror
 
 all: $(NAME)
 

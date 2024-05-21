@@ -13,8 +13,19 @@
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 
-# define BUFFER_SIZE 4000
+# include <stdlib.h>
 
+# define BUFFER_SIZE 1
+
+typedef struct s_gnl_data
+{
+	char	*data;
+	ssize_t	seek;
+}	t_gnl_data;
+
+char	*ft_strjoin_at(const char *s1, const char *s2, size_t at);
+char	*ft_strdup(const char *src, size_t len);
+char	*save_line(char *saver, const char *gd, size_t at);
 char	*get_next_line(int fd);
 
 #endif
