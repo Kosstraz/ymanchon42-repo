@@ -6,7 +6,7 @@
 /*   By: ymanchon <ymanchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 19:30:03 by ymanchon          #+#    #+#             */
-/*   Updated: 2024/03/22 19:30:03 by ymanchon         ###   ########.fr       */
+/*   Updated: 2024/05/17 15:10:06 by ymanchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,9 @@ void	*ft_memset(void *s, int c, size_t n)
 	unsigned char	*ret;
 	unsigned long	i;
 
-	if (!s)
-		return ((void *)0);
-	else if (n == 0)
-		return (s);
-	ret = s;
+	ret = (unsigned char *)s;
 	i = 0;
 	while (i < n)
-		ret[i++] = c;
-	return ((void *)ret);
+		ret[i++] = (unsigned char)c;
+	return (s);
 }

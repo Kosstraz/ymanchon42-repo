@@ -6,21 +6,11 @@
 /*   By: ymanchon <ymanchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 20:10:42 by ymanchon          #+#    #+#             */
-/*   Updated: 2024/03/22 20:53:23 by ymanchon         ###   ########.fr       */
+/*   Updated: 2024/05/21 16:27:32 by ymanchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
-
-static unsigned long	ft_strlen2(const char *str)
-{
-	unsigned long	i;
-
-	i = 0;
-	while (str[i])
-		i++;
-	return (i);
-}
 
 char	*ft_strjoin(const char *s1, const char *s2)
 {
@@ -30,8 +20,8 @@ char	*ft_strjoin(const char *s1, const char *s2)
 	int		i;
 	int		n;
 
-	size1 = ft_strlen2(s1);
-	size2 = ft_strlen2(s2);
+	size1 = ft_strlen(s1);
+	size2 = ft_strlen(s2);
 	ret = (char *)malloc(size1 + size2 + 1);
 	if (!ret)
 		return ((char *)0);

@@ -51,22 +51,22 @@ SRCS =  ./srcs/ft_atoi.c \
 		./srcs/ft_toupper.c \
 		./srcs/ft_strnstr.c \
 
-SRCS_BONUS =	./srcs/ft_lstadd_back_bonus.c \
-				./srcs/ft_lstadd_front_bonus.c \
-				./srcs/ft_lstclear_bonus.c \
-				./srcs/ft_lstdelone_bonus.c \
-				./srcs/ft_lstiter_bonus.c \
-				./srcs/ft_lstlast_bonus.c \
-				./srcs/ft_lstmap_bonus.c \
-				./srcs/ft_lstnew_bonus.c \
-				./srcs/ft_lstsize_bonus.c \
+SRCS_BONUS =	./srcs/ft_lstadd_back.c \
+				./srcs/ft_lstadd_front.c \
+				./srcs/ft_lstclear.c \
+				./srcs/ft_lstdelone.c \
+				./srcs/ft_lstiter.c \
+				./srcs/ft_lstlast.c \
+				./srcs/ft_lstmap.c \
+				./srcs/ft_lstnew.c \
+				./srcs/ft_lstsize.c \
 
 OBJS_DIR =	objs
 
 OBJS =			$(SRCS:%.c=$(OBJS_DIR)/%.o)
 OBJS_BONUS =	$(SRCS_BONUS:%.c=$(OBJS_DIR)/%.o)
 
-INCLUDES = ./includes/
+INCLUDES = -I .
 
 CFLAGS =	-Wall -Wextra -Werror
 
@@ -77,7 +77,7 @@ $(NAME): $(OBJS)
 
 $(OBJS_DIR)/%.o: %.c
 	@mkdir -p $(@D)
-	$(CC) -I $(INCLUDES) $(CFLAGS) -c $< -o $@
+	$(CC) $(INCLUDES) $(CFLAGS) -c $< -o $@
 
 clean:
 	rm $(OBJS_DIR) -rf
@@ -87,8 +87,7 @@ fclean: clean
 
 re: fclean all
 
-bonus: $(OBJS) $(OBJS_BONUS)
-	$(AR) -o $@ $(OBJS)
-	$(AR) -o $@ $(OBJS_BONUS)
+bonus: all $(OBJS_BONUS)
+	$(AR) -o $(NAME) $(OBJS_BONUS)
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re bonus

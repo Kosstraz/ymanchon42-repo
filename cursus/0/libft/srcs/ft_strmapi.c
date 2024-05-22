@@ -6,21 +6,11 @@
 /*   By: ymanchon <ymanchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 20:10:46 by ymanchon          #+#    #+#             */
-/*   Updated: 2024/03/24 12:22:03 by ymanchon         ###   ########.fr       */
+/*   Updated: 2024/05/21 16:28:12 by ymanchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
-
-static unsigned long	ft_strlen2(const char *str)
-{
-	unsigned long	i;
-
-	i = 0;
-	while (str[i])
-		i++;
-	return (i);
-}
 
 char	*ft_strmapi(const char *str, char (*f)(unsigned int, char))
 {
@@ -28,7 +18,7 @@ char	*ft_strmapi(const char *str, char (*f)(unsigned int, char))
 	unsigned int		size;
 	unsigned int		i;
 
-	size = ft_strlen2(str);
+	size = ft_strlen(str);
 	ret = (char *)malloc(size + 1);
 	if (!ret)
 		return ((void *)0);

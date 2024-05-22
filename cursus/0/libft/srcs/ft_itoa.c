@@ -6,7 +6,7 @@
 /*   By: ymanchon <ymanchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 20:10:11 by ymanchon          #+#    #+#             */
-/*   Updated: 2024/03/18 20:10:12 by ymanchon         ###   ########.fr       */
+/*   Updated: 2024/05/17 15:17:05 by ymanchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static int	ft_intlen(int n)
 	return (n_len);
 }
 
-static char	*ft_itoa_int_min()
+static char	*ft_itoa_int_min(void)
 {
 	char	*ret;
 	int		n;
@@ -47,7 +47,7 @@ static char	*ft_itoa_int_min()
 	return (ret);
 }
 
-static char	*ft_itoa_zero()
+static char	*ft_itoa_zero(void)
 {
 	char	*ret;
 

@@ -6,7 +6,7 @@
 /*   By: ymanchon <ymanchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 20:10:51 by ymanchon          #+#    #+#             */
-/*   Updated: 2024/03/22 19:56:07 by ymanchon         ###   ########.fr       */
+/*   Updated: 2024/05/17 15:21:23 by ymanchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 char	*ft_strrchr(const char *str, const char c)
 {
-	char		*ret;
+	char			*ret;
 	unsigned long	count;
 
 	count = 0;
@@ -22,11 +22,13 @@ char	*ft_strrchr(const char *str, const char c)
 		return ((void *)0);
 	ret = (char *)str;
 	while (*str)
+	{
 		if (*(str++) == c)
 		{
 			ret = (char *)(str - 1);
 			count++;
 		}
+	}
 	if (c == 0)
 		return ((char *)str);
 	if (count == 0)

@@ -6,11 +6,11 @@
 /*   By: ymanchon <ymanchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 20:10:44 by ymanchon          #+#    #+#             */
-/*   Updated: 2024/03/18 20:10:45 by ymanchon         ###   ########.fr       */
+/*   Updated: 2024/05/21 16:28:00 by ymanchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-//#include "../libft.h"
+#include "../libft.h"
 #include <stddef.h>
 
 size_t	ft_strlen(const char *str)

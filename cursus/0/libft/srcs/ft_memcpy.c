@@ -6,7 +6,7 @@
 /*   By: ymanchon <ymanchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 20:10:18 by ymanchon          #+#    #+#             */
-/*   Updated: 2024/03/18 20:10:19 by ymanchon         ###   ########.fr       */
+/*   Updated: 2024/05/17 15:10:28 by ymanchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,14 @@
 
 void	*ft_memcpy(void *dest, const void *src, size_t n)
 {
-	void		*ret;
-	char		*v1;
-	const char	*v2;
+	char	*v1;
+	char	*v2;
 
-	if (!dest || !src)
-		return ((void *)0);
-	v1 = (void *)dest;
-	v2 = (void *)src;
-	ret = v1;
+	if (!dest && !src)
+		return (NULL);
+	v1 = (char *)dest;
+	v2 = (char *)src;
 	while (n-- > 0)
 		*(v1++) = *(v2++);
-	return (ret);
+	return (dest);
 }

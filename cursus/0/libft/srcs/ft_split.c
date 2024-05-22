@@ -6,16 +6,23 @@
 /*   By: ymanchon <ymanchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 20:10:32 by ymanchon          #+#    #+#             */
-/*   Updated: 2024/03/22 21:29:33 by ymanchon         ###   ########.fr       */
+/*   Updated: 2024/05/21 16:27:42 by ymanchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
 
-static int	count_words(const char *s, char sep)
+/*static void	ft_split_free(char **tofree, size_t count)
 {
-	int	words;
-	int	i;
+	while (count >= 0)
+		free(tofree[count--]);
+	free(tofree);
+}*/
+
+static size_t	count_words(const char *s, char sep)
+{
+	size_t	words;
+	size_t	i;
 
 	words = 0;
 	i = -1;
@@ -25,41 +32,33 @@ static int	count_words(const char *s, char sep)
 	return (words);
 }
 
-static char	*ft_strdup_forsplit(const char *s, char sep, unsigned long *start)
+static char	*strdup_at(const char *str, ssize_t start, ssize_t end)
 {
-	char			*ret;
-	unsigned long	size;
-	unsigned long	i;
+	size_t	i;
+	size_t	size;
+	char	*ret;
 
-	size = 0;
-	while (s[(*start) + size] && s[(*start) + size] != sep)
-		size++;
-	ret = (char *)malloc(size + 1);
+	size = end - start;
+	ret = (char *)malloc(sizeof(char) * (size + 1));
 	if (!ret)
-		return ((void *)0);
+		return (NULL);
+	ret[size] = '\0';
 	i = 0;
-	while (i < size)
-	{
-		ret[i] = s[(*start) + i];
-		i++;
-	}
-	ret[i] = '\0';
+	while (start < end)
+		ret[i++] = str[start++];
 	return (ret);
 }
 
 char	**ft_split(const char *s, char sep)
 {
-	char			**ret;
-	unsigned long	size;
-	unsigned long	i;
-	unsigned long	j;
+	char	**ret;
+	size_t	back;
+	size_t	i;
+	size_t	j;
 
-	if (!s)	
-		return ((void *)0);
-	size = count_words(s, sep);
-	ret = (char **)malloc(size + 1);
+	ret = (char **)malloc(sizeof(char *) * (count_words(s, sep) + 1));
 	if (!ret)
-		return ((void *)0);
+		return (NULL);
 	i = 0;
 	j = 0;
 	while (s[i])
@@ -68,26 +67,13 @@ char	**ft_split(const char *s, char sep)
 			i++;
 		if (!s[i])
 			break ;
-		ret[j] = ft_strdup_forsplit(s, sep, &i);
-		if (!ret[j++])
+		back = i;
+		while (s[i] != sep && s[i])
+			i++;
+		ret[j++] = strdup_at(s, back, i);
+		if (!ret)
 			return (NULL);
 	}
-	ret[j] = ((char *)0);
+	ret[j] = NULL;
 	return (ret);
 }
-/*
-int	main()
-{
-	char **ez = ft_split("lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor. Cras elementum ultricies diam. Maecenas ligula massa, varius a, semper congue, euismod non, mi.", ' ');
-
-	printf("------------------------\n");
-	for (unsigned long i = 0 ; ez[i] ; i++)
-		printf("$%s$\n", ez[i]);
-
-	    // Libérer la mémoire allouée pour chaque chaîne
-    for (unsigned long i = 0; ez[i]; i++)
-        free(ez[i]);
-    // Libérer la mémoire allouée pour le tableau
-    free(ez);
-
-}*/

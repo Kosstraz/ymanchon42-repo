@@ -6,66 +6,93 @@
 /*   By: ymanchon <ymanchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 20:10:53 by ymanchon          #+#    #+#             */
-/*   Updated: 2024/03/23 16:54:34 by ymanchon         ###   ########.fr       */
+/*   Updated: 2024/05/17 17:22:45 by ymanchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
 
-static int	is_set(const char c, const char *set)
+static char	is_set(const char c, const char *set)
 {
-	int	i;
+	size_t	i;
 
 	i = 0;
 	while (set[i])
-		if (set[i++] == c)
+		if (c == set[i++])
 			return (1);
 	return (0);
 }
 
-static size_t	count_set(const char *s1, const char *set)
+static void	skipset(const char *str, const char *set, ssize_t *a, ssize_t *b)
 {
-	int	count;
-	int	i;
+	ssize_t	i;
+	ssize_t	size;
+	char	flag;
 
-	count = 0;
 	i = 0;
-	while (s1[i])
-		if (is_set(s1[i++], set))
-			count++;
-	return (count);
+	flag = 0;
+	size = ft_strlen(str);
+	while (i < size && !flag)
+		if (!is_set(str[i++], set))
+			flag++;
+	*a = i - 1;
+	if (!flag)
+		*a = 0;
+	flag = 0;
+	i = size - 1;
+	while (i >= 0 && i < size && !flag)
+		if (!is_set(str[i--], set))
+			flag++;
+	*b = i + 2;
+	if (!flag)
+		*b = size;
 }
 
-static unsigned long	ft_strlen2(const char *str)
+static char	*strdup_at(const char *str, ssize_t start, ssize_t end)
 {
-	unsigned long	i;
+	size_t	i;
+	size_t	size;
+	char	*ret;
+
+	size = end - start;
+	ret = (char *)malloc(sizeof(char) * (size + 1));
+	if (!ret)
+		return (NULL);
+	ret[size] = '\0';
+	i = 0;
+	while (start < end)
+		ret[i++] = str[start++];
+	return (ret);
+}
+
+static char	allocc(const char *str, const char *set)
+{
+	size_t	i;
 
 	i = 0;
 	while (str[i])
-		i++;
-	return (i);
+		if (!is_set(str[i++], set))
+			return (0);
+	return (1);
 }
 
-char	*ft_strtrim(const char *s1, const char *set)
+char	*ft_strtrim(const char *str, const char *set)
 {
 	char	*ret;
-	int		size;
-	int		i;
-	int		offset;
+	ssize_t	s;
+	ssize_t	e;
 
-	size = ft_strlen2(s1) - count_set(s1, set);
-	ret = (char *)malloc(size + 1);
+	if (allocc(str, set))
+	{
+		ret = (char *)malloc(sizeof(char));
+		if (!ret)
+			return (NULL);
+		ret[0] = '\0';
+		return (ret);
+	}
+	skipset(str, set, &s, &e);
+	ret = strdup_at(str, s, e);
 	if (!ret)
 		return (NULL);
-	offset = 0;
-	i = 0;
-	while (i < size)
-	{
-		while (is_set(s1[i + offset], set))
-			offset++;
-		ret[i] = s1[i + offset];
-		i++;
-	}
-	ret[i] = '\0';
 	return (ret);
 }
