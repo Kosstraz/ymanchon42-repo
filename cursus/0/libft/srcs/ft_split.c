@@ -6,18 +6,18 @@
 /*   By: ymanchon <ymanchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 20:10:32 by ymanchon          #+#    #+#             */
-/*   Updated: 2024/05/21 16:27:42 by ymanchon         ###   ########.fr       */
+/*   Updated: 2024/05/22 13:51:12 by ymanchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
 
-/*static void	ft_split_free(char **tofree, size_t count)
+static void	ft_split_free(char **tofree, size_t count)
 {
 	while (count >= 0)
 		free(tofree[count--]);
 	free(tofree);
-}*/
+}
 
 static size_t	count_words(const char *s, char sep)
 {
@@ -27,7 +27,7 @@ static size_t	count_words(const char *s, char sep)
 	words = 0;
 	i = -1;
 	while (s[++i])
-		if ((s[i - 1] == sep || i == 0) && s[i] != sep)
+		if (((i > 0 && s[i - 1] == sep) || i == 0) && s[i] != sep)
 			words++;
 	return (words);
 }
@@ -49,6 +49,18 @@ static char	*strdup_at(const char *str, ssize_t start, ssize_t end)
 	return (ret);
 }
 
+static ssize_t	skip_sep(const char *s, size_t *i, size_t *old, char sep)
+{
+	while (s[*i] == sep)
+		(*i)++;
+	if (!s[*i])
+		return (-1);
+	*old = *i;
+	while (s[*i] != sep && s[*i])
+		(*i)++;
+	return (*i);
+}
+
 char	**ft_split(const char *s, char sep)
 {
 	char	**ret;
@@ -56,6 +68,8 @@ char	**ft_split(const char *s, char sep)
 	size_t	i;
 	size_t	j;
 
+	if (!s)
+		return (NULL);
 	ret = (char **)malloc(sizeof(char *) * (count_words(s, sep) + 1));
 	if (!ret)
 		return (NULL);
@@ -63,16 +77,14 @@ char	**ft_split(const char *s, char sep)
 	j = 0;
 	while (s[i])
 	{
-		while (s[i] == sep)
-			i++;
-		if (!s[i])
+		if (skip_sep(s, &i, &back, sep) == -1)
 			break ;
-		back = i;
-		while (s[i] != sep && s[i])
-			i++;
 		ret[j++] = strdup_at(s, back, i);
 		if (!ret)
+		{
+			ft_split_free(ret, j - 1);
 			return (NULL);
+		}
 	}
 	ret[j] = NULL;
 	return (ret);

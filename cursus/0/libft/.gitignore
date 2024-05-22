@@ -1,0 +1,11 @@
+*/*.out
+*/*.swp
+*/*.a
+*/*.o
+*/*.gch
+*.out
+*.swp
+*.a
+*.o
+*.gch
+.vscode

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ymanchon <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: ymanchon <ymanchon@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/13 16:21:19 by ymanchon          #+#    #+#              #
-#    Updated: 2024/05/16 16:48:04 by ymanchon         ###   ########.fr        #
+#    Updated: 2024/05/22 16:27:22 by ymanchon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,15 +51,15 @@ SRCS =  ./srcs/ft_atoi.c \
 		./srcs/ft_toupper.c \
 		./srcs/ft_strnstr.c \
 
-SRCS_BONUS =	./srcs/ft_lstadd_back.c \
-				./srcs/ft_lstadd_front.c \
-				./srcs/ft_lstclear.c \
-				./srcs/ft_lstdelone.c \
-				./srcs/ft_lstiter.c \
-				./srcs/ft_lstlast.c \
-				./srcs/ft_lstmap.c \
-				./srcs/ft_lstnew.c \
-				./srcs/ft_lstsize.c \
+SRCS_BONUS =	./srcs/ft_lstadd_back_bonus.c \
+				./srcs/ft_lstadd_front_bonus.c \
+				./srcs/ft_lstclear_bonus.c \
+				./srcs/ft_lstdelone_bonus.c \
+				./srcs/ft_lstiter_bonus.c \
+				./srcs/ft_lstlast_bonus.c \
+				./srcs/ft_lstmap_bonus.c \
+				./srcs/ft_lstnew_bonus.c \
+				./srcs/ft_lstsize_bonus.c \
 
 OBJS_DIR =	objs
 
