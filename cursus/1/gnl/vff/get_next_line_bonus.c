@@ -1,22 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ymanchon <ymanchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/26 12:57:35 by ymanchon          #+#    #+#             */
-/*   Updated: 2024/05/26 14:14:27 by ymanchon         ###   ########.fr       */
+/*   Updated: 2024/05/26 19:00:57 by ymanchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
-#include "get_next_line.h"
-
-//#include <fcntl.h>
-//#include <stdio.h>
-//#define COUNT_TEST 3
-//#define FILE_TEST "only_nl.txt"
+#include "get_next_line_bonus.h"
 
 // @param buffer la chaine qui sera analysee
 // @param bef ptr sur chaine qui contiendra tout avant 'c' ('c' compris)
@@ -99,7 +94,9 @@ char	gnl_read(int fd, char **ret, char **buffer)
 	*ret = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	if (!(*ret))
 		return (free_n(buffer), -1);
-	i = read(fd, *ret, sizeof(char) * BUFFER_SIZE);
+	i = read(fd, *ret, BUFFER_SIZE);
+	if (i < 0)
+		return (free_n(ret), free_n(buffer), -1);
 	(*ret)[i] = '\0';
 	if (!i && buffer && *buffer && (*buffer)[0])
 	{
@@ -121,26 +118,33 @@ char	gnl_read(int fd, char **ret, char **buffer)
 
 char	*get_next_line(int fd)
 {
-	static char	*buffer;
+	static char	*buffer[FD_MAX];
 	char		*ret;
 	char		log;
 
 	ret = NULL;
-	if (read(fd, 0, 0) < 0 || fd < 0)
-		return (free_n(&buffer));
-	while (!thereis_nl(buffer))
+	if (fd < 0)
+		return (free_n(&(buffer[fd])));
+	while (!thereis_nl(buffer[fd]))
 	{
-		log = gnl_read(fd, &ret, &buffer);
+		log = gnl_read(fd, &ret, &(buffer[fd]));
 		if (log < 0)
 			return (NULL);
 		else if (log > 0)
 			return (ret);
 	}
 	free_n(&ret);
-	ret = save_line(buffer, '\n');
-	buffer = save_after_c(&buffer, '\n');
+	ret = save_line(buffer[fd], '\n');
+	buffer[fd] = save_after_c(&(buffer[fd]), '\n');
+	if (!buffer[fd][0])
+		free_n(&(buffer[fd]));
 	return (ret);
 }
+
+//#include <fcntl.h>
+//#include <stdio.h>
+//#define LINE_COUNT 3
+//#define FILE_NAME "test.txt"
 
 /*int	main(void)
 {
