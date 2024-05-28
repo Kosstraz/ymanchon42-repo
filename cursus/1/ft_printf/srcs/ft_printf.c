@@ -6,7 +6,7 @@
 /*   By: ymanchon <ymanchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 15:09:31 by ymanchon          #+#    #+#             */
-/*   Updated: 2024/05/28 13:23:29 by ymanchon         ###   ########.fr       */
+/*   Updated: 2024/05/28 16:38:29 by ymanchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,7 @@ static int	ft_printf_handle(const char *msg, int *i, va_list *args)
 
 	count = 0;
 	++(*i);
-	if (BONUS_PART)
-		count += ft_printf_parse_bonus(msg, i, args);
+	count += ft_printf_parse_bonus(msg, i, args);
 	c = msg[*i];
 	if (c == 'x' || c == 'X')
 		count += ft_puthexa(ft_ith(va_arg(*args, int), c));
@@ -61,14 +60,3 @@ int	ft_printf(const char *msg, ...)
 	va_end(args);
 	return (chrs);
 }
-
-/*			
-#include <stdio.h>	
-int	main(void)
-{	
-	  printf("$%v 4d$\n", -421);
-	  printf("$%v 5d$\n", 21462);
-	ft_printf("$%v 4d$\n", -421);
-	ft_printf("$%v 5d$\n", 21462);
-	return (0);
-}	*/

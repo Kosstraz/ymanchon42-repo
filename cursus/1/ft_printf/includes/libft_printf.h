@@ -6,16 +6,12 @@
 /*   By: ymanchon <ymanchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 15:09:36 by ymanchon          #+#    #+#             */
-/*   Updated: 2024/05/28 13:24:16 by ymanchon         ###   ########.fr       */
+/*   Updated: 2024/05/28 16:37:45 by ymanchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_PRINTF_H
 # define LIBFT_PRINTF_H
-
-# ifndef BONUS_PART
-#  define BONUS_PART 0
-# endif
 
 # define LFORMAT "cspiudxX%"
 # define __FLAG_ "# +"
@@ -39,7 +35,8 @@
 	'#' -> Avec 'x' ajoute le prefixe '0x'
 	'#' -> Avec 'X' ajoute le prefixe '0X'
 	'*'-> '*' etant un entier : printf("%96d", 42) il y aura 96 espaces
-	'*'-> Fonctionne avec tout, et il faut que l'entier indique soit colle au lformat
+	'*'-> Fonctionne avec tout, et il faut que l'entier 
+			indique soit colle au lformat
 	' ' -> Ajoute un espace pour les 'd' et 'i' si ' *' n'est pas trouve
 	'+' -> Ajoute un '+' si le nombre ('d' ou 'i') est >= 0
 */

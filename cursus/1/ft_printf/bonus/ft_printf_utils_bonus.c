@@ -6,11 +6,13 @@
 /*   By: ymanchon <ymanchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 12:33:37 by ymanchon          #+#    #+#             */
-/*   Updated: 2024/05/28 13:15:00 by ymanchon         ###   ########.fr       */
+/*   Updated: 2024/05/28 16:03:49 by ymanchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/libft_printf.h"
+
+#define BONUS_FILE
 
 static int	ft_isspace(const char *str)
 {
