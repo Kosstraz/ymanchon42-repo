@@ -6,7 +6,7 @@
 /*   By: ymanchon <ymanchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 15:09:36 by ymanchon          #+#    #+#             */
-/*   Updated: 2024/05/27 19:13:35 by ymanchon         ###   ########.fr       */
+/*   Updated: 2024/05/28 13:24:16 by ymanchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,15 +52,11 @@ typedef struct s_flags_info
 	int	plus;
 }	t_flags_info;
 
-/*char	is_valid(const char *s);
-char	is_flag(char c);
 char	is_lformat(char c);
-void	add_flag(t_flags_info *finfo, char flag);
-void	init_flag(t_flags_info *finfo);
+char	is_flag(char c);
 int		ft_atoi(const char *str);
-int		ft_abs(int a);
-int		ft_printf_parse_bonus(const char *msg, int *i, va_list *args);
-int		ft_printf_handle_bonus(char c, t_flags_info finfo, va_list *args);*/
+void	skip_digits(const char *msg, int *i);
+char	is_digit(char c);
 void	add_flag(t_flags_info *finfo, char flag);
 void	init_flag(t_flags_info *finfo);
 int		ft_printf_handle_flags(char c, t_flags_info finfo, va_list *args);

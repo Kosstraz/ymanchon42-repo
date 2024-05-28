@@ -6,7 +6,7 @@
 /*   By: ymanchon <ymanchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 18:15:55 by ymanchon          #+#    #+#             */
-/*   Updated: 2024/05/27 19:41:27 by ymanchon         ###   ########.fr       */
+/*   Updated: 2024/05/28 13:21:56 by ymanchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,63 +34,17 @@ char	is_flag(char c)
 	return (0);
 }
 
-void	add_flag(t_flags_info *finfo, char c)
-{
-	if (c == ' ')
-		finfo->space = 1;
-	if (c == '#')
-		finfo->diez = 1;
-	if (c == '+')
-		finfo->plus = 1;
-}
-
-void	init_flag(t_flags_info *finfo)
-{
-	finfo->diez = 0;
-	finfo->plus = 0;
-	finfo->space = 0;
-	finfo->width = -1;
-}
-static int	ft_isspace(const char *str)
+int	ft_write_loop(char c, int *count)
 {
 	int	i;
-
-	i = 0;
-	while (is_flag(str[i]))
-		i++;
-	return (i);
-}
-
-static int	ft_is_negative(const char *str, int *i)
-{
-	if (str[*i] == '+' || str[*i] == '-')
-		if (str[(*i)++] == '-')
-			return (-1);
-	return (1);
-}
-
-int	ft_atoi(const char *str)
-{
 	int	ret;
-	int	i;
 
+	i = *count;
 	ret = 0;
-	i = ft_isspace(str);
-	ft_is_negative(str, &i);
-	while (str[i] >= '0' && str[i] <= '9')
-		ret = ret * 10 + (str[i++] - '0');
+	while (i-- > 0)
+		ret += ft_putchar(c);
+	*count -= ret;
 	return (ret);
-}
-
-void	skip_digits(const char *msg, int *i)
-{
-	while (msg[*i] && is_lformat(msg[*i + 1]))
-		(*i)++;
-}
-
-char	is_digit(char c)
-{
-	return (c >= '0' && c <= '9');
 }
 
 int	ft_printf_parse_bonus(const char *msg, int *i, va_list *args)
@@ -108,23 +62,13 @@ int	ft_printf_parse_bonus(const char *msg, int *i, va_list *args)
 		else if (is_lformat(msg[*i]))
 			return (ft_printf_handle_flags(msg[*i], finfo, args));
 		else if (finfo.width >= 0 && !is_digit(msg[*i]))
-			return (*i = tmp, 0);
+			return (*i = tmp - 1, 0);
+		else if (is_digit(msg[*i]) && !is_digit(msg[*i + 1])
+			&& !is_lformat(msg[*i + 1]))
+			return (*i = tmp - 1, 0);
 		(*i)++;
 	}
 	return (0);
-}
-
-int	ft_write_loop(char c, int *count)
-{
-	int	i;
-	int	ret;
-
-	i = *count;
-	ret = 0;
-	while (i-- > 0)
-		ret += ft_putchar(c);
-	*count -= ret;
-	return (ret);
 }
 
 int	ft_printf_handle_flags(char c, t_flags_info finfo, va_list *args)
@@ -135,21 +79,21 @@ int	ft_printf_handle_flags(char c, t_flags_info finfo, va_list *args)
 
 	count = 0;
 	va_copy(cpy, *args);
-	if (c == 'd' || c == 'i')									// int copy
+	if (c == 'd' || c == 'i')
 		va_int = va_arg(cpy, int);
-	if (finfo.width > 0)										// '%__FLAGS_ digitsLFORMAT' flags
+	if (finfo.width > 0)
 	{
 		if (c == 'd' || c == 'i')
 			finfo.width -= ft_intlen(va_int);
 		else if (c == 'u')
-			finfo.width -= ft_uintlen(va_int = va_arg(cpy, unsigned int));
+			finfo.width -= ft_uintlen(va_arg(cpy, unsigned int));
 		if (finfo.width > 0)
 			count += ft_write_loop(' ', &finfo.width);
 	}
-	if ((c == 'x' || c == 'X') && finfo.diez && va_arg(cpy, int))// Hexadecimal
+	if ((c == 'x' || c == 'X') && finfo.diez && va_arg(cpy, int))
 		return (ft_putchar('0'), ft_putchar(c), 2);
 	else if ((c == 'd' || c == 'i') && finfo.space && va_int >= 0
-		&& !finfo.plus && finfo.width > 0)
+		&& !finfo.plus && finfo.width <= 0)
 		count += ft_putchar(' ');
 	else if ((c == 'd' || c == 'i') && finfo.plus && va_int >= 0)
 		count += ft_putchar('+');

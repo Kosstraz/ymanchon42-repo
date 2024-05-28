@@ -1,39 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_utils2.c                                        :+:      :+:    :+:   */
+/*   ft_printf_utils2_bonus.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ymanchon <ymanchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/18 15:09:20 by ymanchon          #+#    #+#             */
-/*   Updated: 2024/05/16 16:26:09 by ymanchon         ###   ########.fr       */
+/*   Created: 2024/05/28 12:33:37 by ymanchon          #+#    #+#             */
+/*   Updated: 2024/05/28 13:18:44 by ymanchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/libft_printf.h"
 
-void	ft_swapchr(char **str, unsigned long size)
+void	add_flag(t_flags_info *finfo, char c)
 {
-	unsigned long	j;
-
-	j = 0;
-	while (size > j)
-	{
-		(*str)[size] ^= (*str)[j];
-		(*str)[j] ^= (*str)[size];
-		(*str)[size--] ^= (*str)[j++];
-	}
+	if (c == ' ')
+		finfo->space = 1;
+	if (c == '#')
+		finfo->diez = 1;
+	if (c == '+')
+		finfo->plus = 1;
 }
 
-void	ft_putunbr(unsigned int n)
+void	init_flag(t_flags_info *finfo)
 {
-	if (n == 0)
-		ft_putchar('0');
-	else if (n >= 10)
-	{
-		ft_putunbr(n / 10);
-		ft_putchar(n % 10 + '0');
-	}
-	else
-		ft_putchar(n + '0');
+	finfo->diez = 0;
+	finfo->plus = 0;
+	finfo->space = 0;
+	finfo->width = -1;
 }

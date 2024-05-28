@@ -6,52 +6,69 @@
 /*   By: ymanchon <ymanchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 15:09:31 by ymanchon          #+#    #+#             */
-/*   Updated: 2024/05/16 16:25:37 by ymanchon         ###   ########.fr       */
+/*   Updated: 2024/05/28 13:23:29 by ymanchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/libft_printf.h"
-#include <stdarg.h>
-#include <stdlib.h>
-#include <stdio.h>
 
-static void	ft_printf_handle(const char *msg, va_list *args, int *i)
+static int	ft_printf_handle(const char *msg, int *i, va_list *args)
 {
-	char	c;
+	size_t			count;
+	char			c;
 
-	(*i)++;
-	c = msg[(*i)];
-	if (c == 'i' || c == 'd' || c == 'c')
-		ft_putnbr(va_arg(*args, int));
+	count = 0;
+	++(*i);
+	if (BONUS_PART)
+		count += ft_printf_parse_bonus(msg, i, args);
+	c = msg[*i];
+	if (c == 'x' || c == 'X')
+		count += ft_puthexa(ft_ith(va_arg(*args, int), c));
+	else if (c == 'i' || c == 'd')
+		count += ft_putnbr(va_arg(*args, int), 0);
+	else if (c == 'c')
+		count += ft_putchar((char)va_arg(*args, int));
 	else if (c == 'u')
-		ft_putunbr(va_arg(*args, unsigned int));
+		count += ft_putunbr(va_arg(*args, unsigned int), 0);
 	else if (c == 's')
-		ft_putstr(va_arg(*args, char *));
+		count += ft_putstr(va_arg(*args, char *));
 	else if (c == 'p')
-		ft_puthexa(ft_addth(va_arg(*args, const void *), "0123456789abcdef"));
-	else if (c == 'x')
-		ft_puthexa(ft_ith(va_arg(*args, int), "0123456789abcdef"));
-	else if (c == 'X')
-		ft_puthexa(ft_ith(va_arg(*args, int), "0123456789ABCDEF"));
+		count += ft_puthexa(ft_adth(va_arg(*args, void *), "0123456789abcdef"));
 	else
-		ft_putchar('%');
+		count += ft_putchar('%');
+	return (count);
 }
 
 int	ft_printf(const char *msg, ...)
 {
 	int			i;
+	int			chrs;
 	va_list		args;
 
+	if (!msg)
+		return (-1);
 	va_start(args, msg);
+	chrs = 0;
 	i = 0;
 	while (msg[i])
 	{
 		if (msg[i] != '%')
-			ft_putchar(msg[i]);
+			chrs += ft_putchar(msg[i]);
 		else
-			ft_printf_handle(msg, &args, &i);
+			chrs += ft_printf_handle(msg, &i, &args);
 		i++;
 	}
 	va_end(args);
-	return (0);
+	return (chrs);
 }
+
+/*			
+#include <stdio.h>	
+int	main(void)
+{	
+	  printf("$%v 4d$\n", -421);
+	  printf("$%v 5d$\n", 21462);
+	ft_printf("$%v 4d$\n", -421);
+	ft_printf("$%v 5d$\n", 21462);
+	return (0);
+}	*/
