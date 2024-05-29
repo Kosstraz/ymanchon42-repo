@@ -70,7 +70,7 @@ _colorR_:
 	@echo "$(RED_B)"
 
 _colorG_:
-	@echo "$(GREEN_B)Compilation terminee 🗿\n$(CLASSIC)"
+	@echo "$(GREEN_B)Compilation terminée 🗿\n$(CLASSIC)"
 
 clean: _colorR_
 	rm $(LIBFT_P)/$(OBJS_DIR) -rf
@@ -79,7 +79,7 @@ clean: _colorR_
 fclean: clean
 	rm $(LIB) -f
 	rm $(NAME) -f
-	@echo "Tout a ete supprime... 🗑️\n$(CLASSIC)"
+	@echo "Tout à été supprimé... 🗑️\n$(CLASSIC)"
 
 re: fclean all
 
