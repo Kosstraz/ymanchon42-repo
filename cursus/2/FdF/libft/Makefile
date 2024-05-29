@@ -6,7 +6,7 @@
 #    By: ymanchon <ymanchon@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/13 16:21:19 by ymanchon          #+#    #+#              #
-#    Updated: 2024/05/29 00:00:29 by ymanchon         ###   ########.fr        #
+#    Updated: 2024/05/29 14:32:58 by ymanchon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,6 +52,8 @@ SRCS =  ./srcs/ft_atoi.c \
 		./srcs/ft_strnstr.c \
 		./gnl/get_next_line_utils_bonus.c \
 		./gnl/get_next_line_bonus.c \
+		./others/ft_count_words.c \
+		./others/ft_intlen.c \
 		./parsing/ft_isspace.c \
 		./parsing/ft_rev_isspace.c \
 
@@ -74,9 +76,13 @@ INCLUDES = -I .
 
 CFLAGS =	-Wall -Wextra -Werror
 
+PRINTF_P = ./ft_printf
+
 all: $(NAME)
 
 $(NAME): $(OBJS)
+	make -C $(PRINTF_P)
+	$(AR) -o $@ $(PRINTF_P)/objs/*/*.o
 	$(AR) -o $@ $(OBJS)
 
 $(OBJS_DIR)/%.o: %.c

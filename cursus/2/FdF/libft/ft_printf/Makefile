@@ -6,7 +6,7 @@
 #    By: ymanchon <ymanchon@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/13 16:21:19 by ymanchon          #+#    #+#              #
-#    Updated: 2024/05/28 22:30:59 by ymanchon         ###   ########.fr        #
+#    Updated: 2024/05/29 14:18:34 by ymanchon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,10 +35,10 @@ INCLUDES = -I . -I ./includes/
 
 CFLAGS =	-Wall -Wextra -Werror
 
-all: $(NAME)
+all: $(OBJS)
 
-$(NAME): $(OBJS)
-	$(AR) -o $@ $(OBJS)
+#$(NAME): $(OBJS)
+#	$(AR) -o $@ $(OBJS)
 
 $(OBJS_DIR)/%.o: %.c
 	@mkdir -p $(@D)

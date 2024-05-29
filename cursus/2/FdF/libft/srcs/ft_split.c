@@ -6,7 +6,7 @@
 /*   By: ymanchon <ymanchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 20:10:32 by ymanchon          #+#    #+#             */
-/*   Updated: 2024/05/23 17:47:50 by ymanchon         ###   ########.fr       */
+/*   Updated: 2024/05/29 14:03:50 by ymanchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,19 +22,6 @@ static void	ft_split_free(char **tofree, size_t count)
 	if (tofree[0])
 		free(tofree[0]);
 	free(tofree);
-}
-
-static size_t	count_words(const char *s, char sep)
-{
-	size_t	words;
-	size_t	i;
-
-	words = 0;
-	i = -1;
-	while (s[++i])
-		if (((i > 0 && s[i - 1] == sep) || i == 0) && s[i] != sep)
-			words++;
-	return (words);
 }
 
 static char	*strdup_at(const char *str, ssize_t start, ssize_t end)
@@ -75,7 +62,7 @@ char	**ft_split(const char *s, char sep)
 
 	if (!s)
 		return (NULL);
-	ret = (char **)malloc(sizeof(char *) * (count_words(s, sep) + 1));
+	ret = (char **)malloc(sizeof(char *) * (ft_count_words(s, sep) + 1));
 	if (!ret)
 		return (NULL);
 	i = 0;

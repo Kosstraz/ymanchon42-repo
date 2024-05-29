@@ -1,19 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf_errors.c                                       :+:      :+:    :+:   */
+/*   ft_intlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ymanchon <ymanchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/28 22:32:58 by ymanchon          #+#    #+#             */
-/*   Updated: 2024/05/29 18:23:12 by ymanchon         ###   ########.fr       */
+/*   Created: 2024/05/29 14:32:27 by ymanchon          #+#    #+#             */
+/*   Updated: 2024/05/29 14:32:37 by ymanchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
+#include "../libft.h"
 
-int	printexit(const char *strerror, int errcode)
+int	ft_intlen(int n)
 {
-	ft_putstr_fd(strerror, 2);
-	exit(errcode);
+	int	ret;
+
+	ret = 0;
+	if (n <= 0)
+	{
+		n = -n;
+		ret++;
+	}
+	while (n > 0)
+	{
+		n /= 10;
+		ret++;
+	}
+	return (ret);
 }

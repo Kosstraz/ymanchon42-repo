@@ -6,7 +6,7 @@
 /*   By: ymanchon <ymanchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 20:09:36 by ymanchon          #+#    #+#             */
-/*   Updated: 2024/05/28 23:59:49 by ymanchon         ###   ########.fr       */
+/*   Updated: 2024/05/29 14:32:48 by ymanchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,22 @@
 # ifndef GNL_BUFFER_SIZE
 #  define GNL_BUFFER_SIZE 64
 # endif
+
+/* //////////////////////////// */
+// 								//
+//			FT_PRINTF			//
+//								//
+/* //////////////////////////// */
+
+int		ft_printf(const char *msg, ...);
+
+/* //////////////////////////// */
+// 								//
+//				GNL				//
+//								//
+/* //////////////////////////// */
+
+char	*get_next_line(int fd);
 
 ///////////////
 /*  PARSING  */
@@ -33,14 +49,6 @@ size_t	ft_isspace(const char *s, size_t *start);
 // @param size La taille de 's'. Si 'size' == 0 -> 'size' = ft_strlen('s')
 // @return La position où un caractère < à 7 et > à 13 est trouvé
 ssize_t	ft_rev_isspace(const char *s, ssize_t size);
-
-/* //////////////////////////// */
-// 								//
-//				GNL				//
-//								//
-/* //////////////////////////// */
-
-char	*get_next_line(int fd);
 
 /////////////
 /*  BONUS  */
@@ -105,5 +113,12 @@ void	ft_putchar_fd(char c, int fd);
 void	ft_putstr_fd(const char *str, int fd);
 void	ft_putendl_fd(const char *str, int fd);
 void	ft_putnbr_fd(int n, int fd);
+
+//////////////
+/*	OTHERS	*/
+//////////////
+
+size_t	ft_count_words(const char *s, char sep);
+int		ft_intlen(int n);
 
 #endif
