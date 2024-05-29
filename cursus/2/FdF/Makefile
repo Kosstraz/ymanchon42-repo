@@ -64,13 +64,13 @@ $(OBJS_DIR)/%.o: %.c
 	$(CC) $(INCLUDES) $(CFLAGS) -c $< -o $@
 
 _colorY_:
-	@echo "$(YELLO)Compilation en cours...\n"
+	@echo "$(YELLO)Compilation en cours... ⚙️\n"
 
 _colorR_:
 	@echo "$(RED_B)"
 
 _colorG_:
-	@echo "$(GREEN_B)Compilation terminee :)\n$(CLASSIC)"
+	@echo "$(GREEN_B)Compilation terminee :) 🗿\n$(CLASSIC)"
 
 clean: _colorR_
 	rm $(LIBFT_P)/$(OBJS_DIR) -rf
