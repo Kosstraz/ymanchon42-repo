@@ -6,7 +6,7 @@
 /*   By: ymanchon <ymanchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 22:39:10 by ymanchon          #+#    #+#             */
-/*   Updated: 2024/05/29 17:38:42 by ymanchon         ###   ########.fr       */
+/*   Updated: 2024/05/30 19:18:07 by ymanchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,61 +45,66 @@ t_vec2	calcul_mapsize(const char *file_path)
 	return (ret);
 }
 
-t_point	*atoi_line(const char *line, t_point *tabY, int y, int *pt_count)
+void	atoi_line(t_data *datas, const char *line, int y)
 {
 	size_t	i;
+	t_vec2	*msize;
+	int		*pc;
 	int		x;
-	int		value;
+	int		z;
 
+	msize = &datas->map_size;
+	pc = &datas->point_count;
 	i = 0;
 	x = 0;
 	while (line[i])
 	{
 		ft_isspace(line, &i);
-		value = ft_atoi(&line[i]);
-		i += ft_intlen(value);
+		z = ft_atoi(&line[i]);
+		i += ft_intlen(z);
 		ft_isspace(line, &i);
-		add_point(&tabY[*pt_count], x, y, value);
-		(*pt_count)++;
+		add_point(&datas->map[*pc],
+			((x * MAPOFFSET) + (WRES_X / 2) - (msize->x * MAPOFFSET) / 2),
+			((y * MAPOFFSET) + (WRES_Y / 2) - (msize->y * MAPOFFSET) / 2),
+			z);
+		(*pc)++;
 		x++;
 	}
-	return (tabY);
 }
 
-t_point	*setmap(t_point *map, const char *file_path)
+t_point	*setmap(t_data *datas, const char *file_path)
 {
 	int		fd;
 	int		y;
-	int		pt_count;
-	t_point	*ret;
+	t_point	*map;
 	char	*line;
 
-	ret = map;
+	map = datas->map;
 	fd = open(file_path, O_RDONLY);
 	line = get_next_line(fd);
 	y = 0;
-	pt_count = 0;
+	datas->point_count = 0;
 	while (line)
 	{
-		ret = atoi_line(line, ret, y, &pt_count);
+		atoi_line(datas, line, y);
 		free(line);
 		line = get_next_line(fd);
 		y++;
 	}
 	close(fd);
-	return (ret);
+	return (map);
 }
 
-t_point	*ft_read_fdfmap(const char *file_path, t_vec2 *map_size)
+t_point	*ft_read_fdfmap(const char *file_path, t_data *datas)
 {
 	long	size;
-	t_point	*map;
 
-	*map_size = calcul_mapsize(file_path);
-	size = map_size->x * map_size->y;
-	map = (t_point *)malloc(sizeof(t_point) * (size + 1));
-	if (!map)
+	datas->map_size = calcul_mapsize(file_path);
+	size = datas->map_size.x * datas->map_size.y;
+	datas->point_count = size;
+	datas->map = (t_point *)malloc(sizeof(t_point) * (size + 1));
+	if (!datas->map)
 		printexit(BAD_MALLOC, 1);
-	add_point(&map[size], NULL_POINT, NULL_POINT, NULL_POINT);
-	return (setmap(map, file_path));
+	add_point(&datas->map[size], NULL_POINT, NULL_POINT, NULL_POINT);
+	return (setmap(datas, file_path));
 }

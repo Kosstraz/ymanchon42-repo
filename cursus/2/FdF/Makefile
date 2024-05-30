@@ -6,7 +6,7 @@
 #    By: ymanchon <ymanchon@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/13 16:21:19 by ymanchon          #+#    #+#              #
-#    Updated: 2024/05/29 18:18:10 by ymanchon         ###   ########.fr        #
+#    Updated: 2024/05/30 18:58:38 by ymanchon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,17 +30,19 @@ CC =	cc
 SRCS =	./srcs/fdf_errors.c \
 		./srcs/fdf_utils.c \
 		./srcs/fdf_parsing.c \
+		./srcs/fdf_rendering.c \
+		./srcs/fdf_hooks.c \
 		./srcs/fdf.c \
 
 OBJS_DIR =		objs
 
-OBJS =	$(SRCS:%.c=$(OBJS_DIR)/%.o)
+OBJS =	$(SRCS:%.c=$(OBJS_DIR)/%.obj)
 
-OBJS_BONUS =	$(SRCS_BONUS:%.c=$(OBJS_DIR)/%.o)
+DEPS =	$(OBJS:%.obj=%.d)
 
 INCLUDES =	-I ./includes/ -I $(PRINTF_P)/ -I $(LIBFT_P)/ -I ./minilibx/
 
-CFLAGS =	-Wall -Wextra -Werror -D GNL_BUFFER_SIZE=100000
+CFLAGS =	-Wall -Wextra -Werror -MMD -D GNL_BUFFER_SIZE=100000
 
 LIBFT_P		=	./libft
 PRINTF_P	=	./ft_printf
@@ -59,7 +61,7 @@ $(NAME): $(OBJS)
 	make bonus -C $(LIBFT_P)
 	$(CC) $(CFLAGS) $(OBJS) $(LIB) $(MLX) -o $@
 
-$(OBJS_DIR)/%.o: %.c
+$(OBJS_DIR)/%.obj: %.c
 	@mkdir -p $(@D)
 	$(CC) $(INCLUDES) $(CFLAGS) -c $< -o $@
 
@@ -84,3 +86,4 @@ fclean: clean
 re: fclean all
 
 .PHONY: all clean fclean re
+-include $(DEPS)
