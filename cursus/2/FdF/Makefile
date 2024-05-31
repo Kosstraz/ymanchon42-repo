@@ -6,7 +6,7 @@
 #    By: ymanchon <ymanchon@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/13 16:21:19 by ymanchon          #+#    #+#              #
-#    Updated: 2024/05/30 18:58:38 by ymanchon         ###   ########.fr        #
+#    Updated: 2024/05/31 18:00:09 by ymanchon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,9 @@ CC =	cc
 SRCS =	./srcs/fdf_errors.c \
 		./srcs/fdf_utils.c \
 		./srcs/fdf_parsing.c \
+		./srcs/fdf_parsing2.c \
 		./srcs/fdf_rendering.c \
+		./srcs/fdf_rendering2.c \
 		./srcs/fdf_hooks.c \
 		./srcs/fdf.c \
 
@@ -50,6 +52,7 @@ PRINTF_P	=	./ft_printf
 LIB	=	$(LIBFT_P)/libft.a \
 
 MLX =	-lX11 -lXext -lmlx_Linux -L ./minilibx/ -Imlx_Linux \
+		-lm \
 
 # ############## #
 #*    REGLES    *#

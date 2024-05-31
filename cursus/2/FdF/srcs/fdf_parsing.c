@@ -6,7 +6,7 @@
 /*   By: ymanchon <ymanchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 22:39:10 by ymanchon          #+#    #+#             */
-/*   Updated: 2024/05/30 19:18:07 by ymanchon         ###   ########.fr       */
+/*   Updated: 2024/05/31 18:39:25 by ymanchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,11 +62,12 @@ void	atoi_line(t_data *datas, const char *line, int y)
 		ft_isspace(line, &i);
 		z = ft_atoi(&line[i]);
 		i += ft_intlen(z);
-		ft_isspace(line, &i);
+		fdf_parse_color(&datas->map[*pc], line, &i);
 		add_point(&datas->map[*pc],
 			((x * MAPOFFSET) + (WRES_X / 2) - (msize->x * MAPOFFSET) / 2),
 			((y * MAPOFFSET) + (WRES_Y / 2) - (msize->y * MAPOFFSET) / 2),
 			z);
+		ft_isspace(line, &i);
 		(*pc)++;
 		x++;
 	}
@@ -102,9 +103,8 @@ t_point	*ft_read_fdfmap(const char *file_path, t_data *datas)
 	datas->map_size = calcul_mapsize(file_path);
 	size = datas->map_size.x * datas->map_size.y;
 	datas->point_count = size;
-	datas->map = (t_point *)malloc(sizeof(t_point) * (size + 1));
+	datas->map = (t_point *)malloc(sizeof(t_point) * size);
 	if (!datas->map)
 		printexit(BAD_MALLOC, 1);
-	add_point(&datas->map[size], NULL_POINT, NULL_POINT, NULL_POINT);
 	return (setmap(datas, file_path));
 }

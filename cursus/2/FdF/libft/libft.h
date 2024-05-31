@@ -6,7 +6,7 @@
 /*   By: ymanchon <ymanchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 20:09:36 by ymanchon          #+#    #+#             */
-/*   Updated: 2024/05/29 14:32:48 by ymanchon         ###   ########.fr       */
+/*   Updated: 2024/05/31 18:33:24 by ymanchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,5 +120,6 @@ void	ft_putnbr_fd(int n, int fd);
 
 size_t	ft_count_words(const char *s, char sep);
 int		ft_intlen(int n);
+char	*ft_convert_base(char *nbr, char *base_from, char *base_to);
 
 #endif

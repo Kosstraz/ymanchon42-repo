@@ -6,16 +6,11 @@
 /*   By: ymanchon <ymanchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 23:42:46 by ymanchon          #+#    #+#             */
-/*   Updated: 2024/05/29 17:04:07 by ymanchon         ###   ########.fr       */
+/*   Updated: 2024/05/31 17:55:03 by ymanchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-
-inline void	init_point(t_point *point)
-{
-	add_point(point, 0, 0, 0);
-}
 
 inline void	add_point(t_point *point, int x, int y, int z)
 {
@@ -43,4 +38,11 @@ inline void	show_points(t_point *points)
 		ft_printf("\n");
 		i++;
 	}
+}
+
+inline int	ft_abs(int a)
+{
+	if (a < 0)
+		return (-a);
+	return (a);
 }

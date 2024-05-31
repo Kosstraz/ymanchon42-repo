@@ -6,7 +6,7 @@
 #    By: ymanchon <ymanchon@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/13 16:21:19 by ymanchon          #+#    #+#              #
-#    Updated: 2024/05/29 14:32:58 by ymanchon         ###   ########.fr        #
+#    Updated: 2024/05/31 18:31:36 by ymanchon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,6 +54,8 @@ SRCS =  ./srcs/ft_atoi.c \
 		./gnl/get_next_line_bonus.c \
 		./others/ft_count_words.c \
 		./others/ft_intlen.c \
+		./others/ft_convert_base2.c \
+		./others/ft_convert_base.c \
 		./parsing/ft_isspace.c \
 		./parsing/ft_rev_isspace.c \
 

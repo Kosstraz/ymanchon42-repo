@@ -6,7 +6,7 @@
 /*   By: ymanchon <ymanchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 21:48:13 by ymanchon          #+#    #+#             */
-/*   Updated: 2024/05/30 19:15:52 by ymanchon         ###   ########.fr       */
+/*   Updated: 2024/05/31 18:38:57 by ymanchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,21 @@
 #  define WRES_Y 999
 # endif
 
-# define MAPOFFSET 15
+# define MAPOFFSET 20
 
-# define RED 0x00FF0000
-# define GREEN 0x0000FF00
-# define BLUE 0x000000FF
-# define WHITE 0x00FFFFFF
+# define RED 0xFF0000
+# define GREEN 0x00FF00
+# define BLUE 0x0000FF
+# define WHITE 0xFFFFFF
+
+# define WINDOW_CLOSE 17
+# define ON_KEYDOWN 2
+# define MASK_NULL 0
+# define MASK_KEYPRESS 1L
+
+# define FKEY_ESC 65307
+
+# define PI 3.14159265358979323
 
 # define NULL_POINT INT_MIN
 # define BAD_MALLOC "Erreur d'allocation avec malloc. Fin du programme.\n"
@@ -46,6 +55,7 @@ en paramètre de programme.\n"
 # include <unistd.h>
 # include <stdlib.h>
 # include <limits.h>
+# include <math.h>
 # include "mlx_int.h"
 # include "libft.h"
 # include "mlx.h"
@@ -56,6 +66,7 @@ typedef struct s_point
 	int	x;
 	int	y;
 	int	z;
+	int	color;
 }	t_point;
 
 // je t'aime <3
@@ -71,6 +82,8 @@ typedef struct s_data
 	void	*mlx;
 	void	*window;
 	int		point_count;
+	int		offset;
+	int		zoom;
 	t_point	*map;
 	t_vec2	map_size;
 }	t_data;
@@ -102,16 +115,23 @@ char	fdf_file_format(const char *file_path);
 // Lit le fichier .fdf et parse la map
 // @return Un tableau de points : (x, y, z)
 t_point	*ft_read_fdfmap(const char *file_path, t_data *datas);
+void	fdf_parse_color(t_point *point, const char *line, size_t *i);
 
 /////////////////////// Rendu graphique
 /*   FDF_RENDERING   */
 ///////////////////////
 
+void	fdf_draw_xdiag(t_data *datas, t_point a, t_point b, int color);
+void	fdf_draw_ydiag(t_data *datas, t_point a, t_point b, int color);
+void	fdf_draw_diag(t_data *datas, t_point a, t_point b, int color);
+void	fdf_draw_line(t_data *datas, t_point a, t_point b, int color);
 int		fdf_draw_map(t_data *datas);
+t_point	*fdf_isometry(t_data *datas);
 
 /////////////////// Fonctions utilitaires
 /*   FDF_UTILS   */
 ///////////////////
+
 // je t'aime <3
 void	init_point(t_point *point);
 // je t'aime <3
@@ -121,5 +141,6 @@ void	add_point(t_point *point, int x, int y, int z);
 char	if_point_eq(t_point point, int val);
 // je t'aime <3
 void	show_points(t_point *points);
+int		ft_abs(int a);
 
 #endif
