@@ -6,7 +6,7 @@
 /*   By: ymanchon <ymanchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 18:56:54 by ymanchon          #+#    #+#             */
-/*   Updated: 2024/06/07 19:54:43 by ymanchon         ###   ########.fr       */
+/*   Updated: 2024/06/08 19:54:41 by ymanchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,21 +28,66 @@ unsigned int	ft_atoui(const char *s)
 	return (ret);
 }
 
+#include <stdio.h>
+#include <stdlib.h>
+
+unsigned int	ft_strlen(const unsigned char *s)
+{
+	unsigned int	i;
+
+	i = 0;
+	while (s[i])
+		i++;
+	return (i);
+}
+
+unsigned char *ft_strdup(const unsigned char *s)
+{
+	unsigned char	*ret;
+	unsigned int	i;
+
+	ret = (unsigned char *)malloc(sizeof(unsigned char) * (ft_strlen(s) + 1));
+	if (!ret)
+		return (NULL);
+	i = 0;
+	while (s[i])
+	{
+		ret[i] = s[i];
+		i++;
+	}
+	return (ret);
+}
+
 void	talk_to(unsigned int sPID, const unsigned char *msg)
 {
+	unsigned char		*dup;
 	unsigned long long	ptr;
+	unsigned int		i;
 
-	ptr = (unsigned long long)msg;
-	kill(sPID, SIGUSR2);
+	i = 0;
+	dup = ft_strdup(msg);
+	ptr = (unsigned long long)dup;
+	printf("%p\n", dup);
+	while (i < 64)
+	{
+		if ((ptr & 0x1) == 1)
+			kill(sPID, SIGUSR2);
+		else
+			kill(sPID, SIGUSR1);
+		ptr = ptr >> 1;
+		i++;
+		usleep(1);
+	}
+	kill(sPID, SIGUSR1);
+	pause();
 }
 
 int	main(int ac, char **av)
 {
 	if (ac <= 2)
 	{
-		write(2, "Deux arguments doivent etre passe en argument, le \
-premier etant le PID du serveur et le second la chaine de \
-caracteres a transmettre.\n", 135);
+		write(2, "Deux arguments doivent respectivement etre \
+passes :\nLe PID du serveur et le message a envoyer.\n", 96);
 		return (0);
 	}
 	else if (ac > 3)
