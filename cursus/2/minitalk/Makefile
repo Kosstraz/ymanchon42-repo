@@ -6,7 +6,7 @@
 #    By: ymanchon <ymanchon@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/13 16:21:19 by ymanchon          #+#    #+#              #
-#    Updated: 2024/06/07 19:04:43 by ymanchon         ###   ########.fr        #
+#    Updated: 2024/06/09 17:26:27 by ymanchon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,8 @@ SERVER_NAME	=	server
 CC =	cc
 
 CLIENT_SRCS =	./client.c
-SERVER_SRCS =	./server.c
+SERVER_SRCS =	./server.c \
+				./server2.c
 
 OBJS_DIR =		objs
 

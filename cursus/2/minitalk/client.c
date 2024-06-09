@@ -6,7 +6,7 @@
 /*   By: ymanchon <ymanchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 18:56:54 by ymanchon          #+#    #+#             */
-/*   Updated: 2024/06/09 16:55:02 by ymanchon         ###   ########.fr       */
+/*   Updated: 2024/06/09 20:01:46 by ymanchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ unsigned int	ft_atoui(const char *s)
 	return (ret);
 }
 
-int	ft_strlen2(const unsigned char *s)
+int	ft_ustrlen(const unsigned char *s)
 {
 	int	i;
 
@@ -62,7 +62,8 @@ void	talk_to(unsigned int sPID, unsigned char *msg)
 	unsigned int		i;
 
 	i = 0;
-	send_to(sPID, ft_strlen2(msg), 32);
+	send_to(sPID, getpid(), 32);
+	send_to(sPID, ft_ustrlen(msg), 32);
 	while (msg[i])
 		send_to(sPID, msg[i++], 8);
 }
@@ -77,6 +78,9 @@ passes :\nLe PID du serveur et le message a envoyer.\n", 96);
 	}
 	else if (ac > 3)
 		write(2, "Les parametres suivant le second, seront ignores.\n", 51);
-	talk_to(ft_atoui(av[1]), (unsigned char *)av[2]);
+	ft_printf("\e[34mID du processus client : %d\e[0m\n", getpid());
+	if (av[2][0])
+		talk_to(ft_atoui(av[1]), (unsigned char *)av[2]);
+	//signal(SIGUSR2, );
 	return (0);
 }
