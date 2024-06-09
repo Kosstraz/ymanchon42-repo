@@ -6,7 +6,7 @@
 /*   By: ymanchon <ymanchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 18:57:05 by ymanchon          #+#    #+#             */
-/*   Updated: 2024/06/09 16:58:25 by ymanchon         ###   ########.fr       */
+/*   Updated: 2024/06/09 19:51:59 by ymanchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 #include <errno.h>
 #include <stdio.h>
 #include <stdlib.h>
+
+void	*ft_memset(void *s, int c, unsigned long n);
 
 typedef struct s_servmsg
 {
@@ -51,6 +53,7 @@ void	malloc_message(void)
 			* sizeof(unsigned char));
 	if (!g_sm.message)
 		exit(1);
+	ft_memset(g_sm.message, 0, g_sm.size);
 }
 
 void	signal_handler(int signum)
@@ -73,7 +76,7 @@ void	signal_handler(int signum)
 		if (g_sm.i > g_sm.size - 1)
 		{
 			g_sm.message[g_sm.i] = '\0';
-			ft_printf("%s\n", g_sm.message);
+			ft_printf("Message transmit -> \e[34m%s\e[0m\n", g_sm.message);
 			free(g_sm.message);
 			init_servmsg(&g_sm);
 		}
@@ -85,10 +88,11 @@ int	main(void)
 	int			pid;
 
 	pid = getpid();
-	ft_printf("ID du processus : %d\n", pid);
+	ft_printf("\e[32mID du processus : %d\e[0m\n", pid);
 	init_servmsg(&g_sm);
 	signal(SIGUSR1, signal_handler);
 	signal(SIGUSR2, signal_handler);
-	while (1);
+	while (1)
+		;
 	return (0);
 }
