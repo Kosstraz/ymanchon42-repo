@@ -6,12 +6,13 @@
 /*   By: ymanchon <ymanchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 18:56:54 by ymanchon          #+#    #+#             */
-/*   Updated: 2024/06/08 19:54:41 by ymanchon         ###   ########.fr       */
+/*   Updated: 2024/06/09 16:55:02 by ymanchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf/ft_printf.h"
 #include <unistd.h>
+#include <stdio.h>
 #include <signal.h>
 
 unsigned int	ft_atoui(const char *s)
@@ -28,12 +29,9 @@ unsigned int	ft_atoui(const char *s)
 	return (ret);
 }
 
-#include <stdio.h>
-#include <stdlib.h>
-
-unsigned int	ft_strlen(const unsigned char *s)
+int	ft_strlen2(const unsigned char *s)
 {
-	unsigned int	i;
+	int	i;
 
 	i = 0;
 	while (s[i])
@@ -41,45 +39,32 @@ unsigned int	ft_strlen(const unsigned char *s)
 	return (i);
 }
 
-unsigned char *ft_strdup(const unsigned char *s)
+void	send_to(unsigned int sPID, unsigned int obj, unsigned int bytemax)
 {
-	unsigned char	*ret;
-	unsigned int	i;
+	unsigned int	b;
 
-	ret = (unsigned char *)malloc(sizeof(unsigned char) * (ft_strlen(s) + 1));
-	if (!ret)
-		return (NULL);
-	i = 0;
-	while (s[i])
+	(void)sPID;
+	b = 0;
+	while (b < bytemax)
 	{
-		ret[i] = s[i];
-		i++;
-	}
-	return (ret);
-}
-
-void	talk_to(unsigned int sPID, const unsigned char *msg)
-{
-	unsigned char		*dup;
-	unsigned long long	ptr;
-	unsigned int		i;
-
-	i = 0;
-	dup = ft_strdup(msg);
-	ptr = (unsigned long long)dup;
-	printf("%p\n", dup);
-	while (i < 64)
-	{
-		if ((ptr & 0x1) == 1)
+		if ((obj & 0x1) == 1)
 			kill(sPID, SIGUSR2);
 		else
 			kill(sPID, SIGUSR1);
-		ptr = ptr >> 1;
-		i++;
+		obj >>= 1;
+		b++;
 		usleep(1);
 	}
-	kill(sPID, SIGUSR1);
-	pause();
+}
+
+void	talk_to(unsigned int sPID, unsigned char *msg)
+{
+	unsigned int		i;
+
+	i = 0;
+	send_to(sPID, ft_strlen2(msg), 32);
+	while (msg[i])
+		send_to(sPID, msg[i++], 8);
 }
 
 int	main(int ac, char **av)
