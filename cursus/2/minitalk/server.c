@@ -6,7 +6,7 @@
 /*   By: ymanchon <ymanchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 18:57:05 by ymanchon          #+#    #+#             */
-/*   Updated: 2024/06/09 20:02:20 by ymanchon         ###   ########.fr       */
+/*   Updated: 2024/06/10 12:47:58 by ymanchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 #include <stdlib.h>
 
 void	*ft_memset(void *s, int c, unsigned long n);
+void	show_message(unsigned int pid, unsigned char *msg);
 
 typedef struct s_servmsg
 {
@@ -65,7 +66,10 @@ void	setup_transmission(int signum)
 		g_sm.message = (unsigned char *)malloc((g_sm.size + 1)
 				* sizeof(unsigned char));
 		if (!g_sm.message)
+		{
+			kill(g_sm.cpid, SIGUSR1);
 			exit(1);
+		}
 		ft_memset(g_sm.message, 0, g_sm.size);
 	}
 }
@@ -93,8 +97,7 @@ void	signal_handler(int signum)
 		if (g_sm.i > g_sm.size - 1)
 		{
 			g_sm.message[g_sm.i] = '\0';
-			ft_printf("Message transmit -> \e[34m%s\e[0m\n", g_sm.message);
-			free(g_sm.message);
+			show_message(g_sm.cpid, g_sm.message);
 			reset_servmsg(&g_sm);
 		}
 	}

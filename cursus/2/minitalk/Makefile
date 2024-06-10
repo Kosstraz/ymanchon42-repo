@@ -6,7 +6,7 @@
 #    By: ymanchon <ymanchon@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/13 16:21:19 by ymanchon          #+#    #+#              #
-#    Updated: 2024/06/09 17:26:27 by ymanchon         ###   ########.fr        #
+#    Updated: 2024/06/10 13:00:37 by ymanchon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,8 @@ SERVER_NAME	=	server
 
 CC =	cc
 
-CLIENT_SRCS =	./client.c
+CLIENT_SRCS =	./client.c \
+				./client2.c
 SERVER_SRCS =	./server.c \
 				./server2.c
 
@@ -73,12 +74,13 @@ _colorG_:
 	@echo "$(GREEN_B)Compilation terminée 🗿\n$(CLASSIC)"
 
 clean: _colorR_
-	rm $(LIBFT_P)/$(OBJS_DIR) -rf
+	rm $(PRINTF_P)/$(OBJS_DIR) -rf
 	rm $(OBJS_DIR) -rf
 
 fclean: clean
 	rm $(LIB) -f
-	rm $(NAME) -f
+	rm $(CLIENT_NAME) -f
+	rm $(SERVER_NAME) -f
 	@echo "Tout à été supprimé... 🗑️\n$(CLASSIC)"
 
 re: fclean all
