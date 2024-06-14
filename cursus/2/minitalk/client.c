@@ -6,7 +6,7 @@
 /*   By: ymanchon <ymanchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 18:56:54 by ymanchon          #+#    #+#             */
-/*   Updated: 2024/06/10 12:57:47 by ymanchon         ###   ########.fr       */
+/*   Updated: 2024/06/12 16:35:04 by ymanchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,7 @@ void	send_to(unsigned int sPID, unsigned int obj, unsigned int bytemax)
 		obj >>= 1;
 		b++;
 		usleep(1);
-	}
-	
+	}	
 }
 
 void	talk_to(unsigned int sPID, unsigned char *msg)
