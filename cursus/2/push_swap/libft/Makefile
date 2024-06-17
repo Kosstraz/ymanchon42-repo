@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ymanchon <ymanchon@student.42.fr>          +#+  +:+       +#+         #
+#    By: bama <bama@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/13 16:21:19 by ymanchon          #+#    #+#              #
-#    Updated: 2024/06/13 17:40:07 by ymanchon         ###   ########.fr        #
+#    Updated: 2024/06/17 11:11:21 by bama             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -86,14 +86,14 @@ OBJS_BONUS =	$(SRCS_BONUS:%.c=$(OBJS_DIR)/%.o)
 
 INCLUDES = -I .
 
-CFLAGS =	-Wall -Wextra -Werror
+CFLAGS =	-Wall -Wextra -Werror -fPIE
 
 PRINTF_P = ./ft_printf
 
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	make -C $(PRINTF_P)
+	make -C $(PRINTF_P) re
 	$(AR) -o $@ $(PRINTF_P)/objs/*/*.o
 	$(AR) -o $@ $(OBJS)
 

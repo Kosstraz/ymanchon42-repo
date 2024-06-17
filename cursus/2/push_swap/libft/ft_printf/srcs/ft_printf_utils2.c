@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf_utils2.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymanchon <ymanchon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bama <bama@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 15:09:20 by ymanchon          #+#    #+#             */
-/*   Updated: 2024/05/27 17:46:25 by ymanchon         ###   ########.fr       */
+/*   Updated: 2024/06/17 11:14:50 by bama             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	ft_putunbr(unsigned int n, int len)
 	return (len);
 }
 
-char	*ft_toupper(char *s)
+char	*ft_toupper_str(char *s)
 {
 	size_t	i;
 

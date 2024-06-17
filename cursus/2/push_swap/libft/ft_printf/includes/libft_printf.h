@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft_printf.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymanchon <ymanchon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bama <bama@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 15:09:36 by ymanchon          #+#    #+#             */
-/*   Updated: 2024/06/12 20:27:50 by ymanchon         ###   ########.fr       */
+/*   Updated: 2024/06/17 11:13:54 by bama             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdarg.h>
+# include "../../libft.h"
 
 /* /////////////////////////
 ////		BONUS		////
@@ -63,14 +64,14 @@ int		ft_printf_parse_bonus(const char *msg, int *i, va_list *args);
 ////		MANDATORY		////
 ///////////////////////////// */
 
-int		ft_strlen(const char *str);
+//int		ft_strlen(const char *str);
 int		ft_putstr(const char *str);
 int		ft_puthexa(char *hexa);
 int		ft_putchar(char c);
 int		ft_putnbr(int n, int len);
 int		ft_putunbr(unsigned int n, int len);
 void	ft_swapchr(char **str, unsigned long size);
-char	*ft_toupper(char *s);
+char	*ft_toupper_str(char *s);
 int		ft_intlen(int n);
 int		ft_uintlen(unsigned int n);
 char	*charrefact(char *ez, int at);

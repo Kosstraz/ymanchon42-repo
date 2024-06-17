@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ymanchon <ymanchon@student.42.fr>          +#+  +:+       +#+         #
+#    By: bama <bama@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/13 16:21:19 by ymanchon          #+#    #+#              #
-#    Updated: 2024/06/14 13:15:40 by ymanchon         ###   ########.fr        #
+#    Updated: 2024/06/17 11:10:21 by bama             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,11 +27,11 @@ NAME	=	push_swap
 
 CC =	cc
 
-SRCS =	./srcs/ps_btree.c \
-		./srcs/ps_inst_p.c \
+SRCS =	./srcs/ps_inst_p.c \
 		./srcs/ps_inst_r.c \
 		./srcs/ps_inst_rr.c \
 		./srcs/ps_inst_s.c \
+		./srcs/ps_cost.c \
 		./srcs/ps_utils.c \
 		./srcs/ps_manual.c \
 		./srcs/push_swap.c \

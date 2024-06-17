@@ -6,7 +6,7 @@
 /*   By: ymanchon <ymanchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 20:22:47 by ymanchon          #+#    #+#             */
-/*   Updated: 2024/06/13 18:02:18 by ymanchon         ###   ########.fr       */
+/*   Updated: 2024/06/16 16:29:02 by ymanchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,10 @@
 
 # ifndef T_BTREE
 #  define T_BTREE int	
+# endif
+
+# ifndef CMP_BTREE
+#  define CMP_BTREE
 # endif
 
 # include <stdlib.h>

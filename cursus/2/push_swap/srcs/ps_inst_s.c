@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ps_inst_s.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymanchon <ymanchon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bama <bama@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 14:03:04 by ymanchon          #+#    #+#             */
-/*   Updated: 2024/06/13 15:25:43 by ymanchon         ###   ########.fr       */
+/*   Updated: 2024/06/17 13:45:57 by bama             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,9 @@ inline void	swap(t_items *s1, t_items *s2)
 	s1->data ^= s2->data;
 	s2->data ^= s1->data;
 	s1->data ^= s2->data;
+	s1->cost ^= s2->cost;
+	s2->cost ^= s1->cost;
+	s1->cost ^= s2->cost;
 	s1->i ^= s2->i;
 	s2->i ^= s1->i;
 	s1->i ^= s2->i;
