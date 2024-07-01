@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bama <bama@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: ymanchon <ymanchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 12:35:55 by ymanchon          #+#    #+#             */
-/*   Updated: 2024/06/30 14:06:06 by bama             ###   ########.fr       */
+/*   Updated: 2024/07/01 16:04:20 by ymanchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	push_swap(t_stack *a, t_stack *b)
 	i = b->len;
 	while (a->len < i)
 		pa(b, a, &ops);
-	//optimize(&ops, ops_size);
+	optimize(&ops);
 	write(1, ops, ft_strlen(ops));
 	freemen(3, ops, a->s, b->s);
 }

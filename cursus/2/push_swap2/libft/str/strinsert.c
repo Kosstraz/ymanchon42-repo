@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   strinsert.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bama <bama@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: ymanchon <ymanchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 15:58:20 by bama              #+#    #+#             */
-/*   Updated: 2024/06/30 12:05:31 by bama             ###   ########.fr       */
+/*   Updated: 2024/07/01 15:54:30 by ymanchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ char	*strinsert(char *str, const char *insert_, int at)
 		ret[i] = insert_[i - at];
 		i++;
 	}
-	while (i < size)
+	while (at < (int)ft_strlen(str))
 		ret[i++] = str[at++];
 	ret[i] = 0;
 	return (ret);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ps_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bama <bama@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: ymanchon <ymanchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 13:13:46 by ymanchon          #+#    #+#             */
-/*   Updated: 2024/06/18 12:41:49 by bama             ###   ########.fr       */
+/*   Updated: 2024/07/01 17:04:48 by ymanchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,15 +77,32 @@ void	place_item(t_items *item, t_stack *a, t_stack *b, char **ops)
 	{
 		if (item->data < b->s[j].data)
 		{
-			h = 0;
-			while (h++ < j)
+			/*	test		*/
+			if (j > b_len / 2)
+			{
+				h = b_len - 1;
+				while (h-- > j)
+					rb(b, ops);
+				pb(a, b, ops);
+				h = b_len - 1;
+				while (h-- > j)
+					rrb(b, ops);
 				rrb(b, ops);
-			pb(a, b, ops);
-			h = 0;
-			while (h++ < j)
+				break ;
+			}
+			/*	testfini	*/
+			else
+			{
+				h = 0;
+				while (h++ < j)
+					rrb(b, ops);
+				pb(a, b, ops);
+				h = 0;
+				while (h++ < j)
+					rb(b, ops);
 				rb(b, ops);
-			rb(b, ops);
-			break ;
+				break ;
+			}
 		}
 		else if (j == b_len - 1)
 			pb(a, b, ops);

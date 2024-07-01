@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bama <bama@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: ymanchon <ymanchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 14:43:20 by ymanchon          #+#    #+#             */
-/*   Updated: 2024/06/20 13:43:14 by bama             ###   ########.fr       */
+/*   Updated: 2024/07/01 15:57:39 by ymanchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ typedef struct s_stack
 	int		len;
 }	t_stack;
 
-void	optimize(char **ops, int size);
+void	optimize(char **ops);
 void	calcul_cost(t_stack *a, t_stack *b);
 t_items	find_mostpoor(t_stack *a);
 char	is_a_sorted(t_stack *a);

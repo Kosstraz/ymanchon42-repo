@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ps_cost.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bama <bama@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: ymanchon <ymanchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 16:09:56 by ymanchon          #+#    #+#             */
-/*   Updated: 2024/06/17 13:43:39 by bama             ###   ########.fr       */
+/*   Updated: 2024/07/01 17:02:19 by ymanchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,19 @@ void	calcul_cost(t_stack *a, t_stack *b)
 			a->s[i].cost = (a->len - i);
 		j = 0;
 		b_cost = 0;
+		/*while (b_cost == 0 && j < b->len)
+		{
+			if (a->s[i].data < b->s[j].data)
+				b_cost = (0);
+			j++;
+		}*/
 		while (b_cost == 0 && j < b->len
-				&& a->s[i].data > b->s[b->len - 1].data)
+			&& a->s[i].data > b->s[b->len - 1].data)
 		{
 			if (a->s[i].data < b->s[j].data)
 				b_cost = ((j * 2) + 1);
 			j++;
-		}
+		}/**/
 		a->s[i].cost += b_cost;
 		i++;
 	}

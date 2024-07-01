@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   strdelete.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bama <bama@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: ymanchon <ymanchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 17:02:42 by bama              #+#    #+#             */
-/*   Updated: 2024/06/30 11:58:57 by bama             ###   ########.fr       */
+/*   Updated: 2024/07/01 15:56:42 by ymanchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ char	*strdelete(char *str, int start, int del_len)
 	i += del_len;
 	while (str[i])
 		ret[j++] = str[i++];
-	ret[i] = 0;
+	ret[j] = 0;
 	return (ret);
 }
 
@@ -62,7 +62,7 @@ char	*strldelete(char *str, int start, int del_len)
 	i += del_len;
 	while (str[i])
 		ret[j++] = str[i++];
-	ret[i] = 0;
+	ret[j] = 0;
 	free(str);
 	return (ret);
 }
