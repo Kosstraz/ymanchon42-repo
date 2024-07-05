@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   btree_applyptr_infix.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymanchon <ymanchon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bama <bama@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 20:33:25 by ymanchon          #+#    #+#             */
-/*   Updated: 2024/06/13 17:41:05 by ymanchon         ###   ########.fr       */
+/*   Updated: 2024/06/18 11:36:49 by bama             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "btree.h"
+#include "libft.h"
 
 void	btree_applyptr_infix(t_btree **root, void (*applyf)(T_BTREE *))
 {

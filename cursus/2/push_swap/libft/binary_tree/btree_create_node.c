@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   btree_create_node.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymanchon <ymanchon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bama <bama@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 20:24:37 by ymanchon          #+#    #+#             */
-/*   Updated: 2024/06/13 17:13:38 by ymanchon         ###   ########.fr       */
+/*   Updated: 2024/06/18 11:36:42 by bama             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "btree.h"
+#include "libft.h"
 
 t_btree	*btree_create_node(T_BTREE item)
 {

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   btree_size.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymanchon <ymanchon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bama <bama@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 12:45:12 by ymanchon          #+#    #+#             */
-/*   Updated: 2024/06/13 11:44:59 by ymanchon         ###   ########.fr       */
+/*   Updated: 2024/06/18 11:36:22 by bama             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "btree.h"
+#include "libft.h"
 
 static void	btree_size_recu(t_btree *root, int *count)
 {

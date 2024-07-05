@@ -3,75 +3,94 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bama <bama@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: ymanchon <ymanchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/16 12:35:55 by ymanchon          #+#    #+#             */
-/*   Updated: 2024/06/17 16:01:58 by bama             ###   ########.fr       */
+/*   Created: 2024/07/03 12:08:29 by ymanchon          #+#    #+#             */
+/*   Updated: 2024/07/05 19:05:07 by ymanchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/push_swap.h"
+#include "../push_swap.h"
 
-void	push_swap_manual(t_stack *a, t_stack *b, int count)
+void	push_swap(t_stack *a, t_stack *b, char **inst)
 {
-	if (count == 2)
-		push_swap_two_a(a);
-	else if (count == 3)
-		push_swap_three_a(a);
-}
+	int	poor_i;
 
-void	push_swap(t_stack *a, t_stack *b)
-{
-	int		i;
-	t_items	poor;
-
-	pb(a, b);
-	pb(a, b);
-	pb(a, b);
-	push_swap_three_b(b);
+	pb(a, b, inst);
+	pb(a, b, inst);
+	pb(a, b, inst);
+	sort_three_b(b, inst);
+	/*printf("\t\tPB\n\n");
+	show_stack(*a, "A(3)");
+	show_stack(*b, "B(3)");*/
 	while (a->len)
 	{
 		calcul_cost(a, b);
-		poor = find_mostpoor(a);
-		poor_at_top(&poor, a, a->len);
-		place_item(&poor, a, b, b->len);
+		poor_i = find_poor(a);
+		//poor_at_top(a, inst, poor_i);
+		place_poor(a, b, inst, poor_i);
+		/*printf("\t\t%d\n\n", a->len);
+		show_stack(*a, "A(x)");
+		show_stack(*b, "B(x)");*/
 	}
-	i = b->len;
-	while (a->len < i)
-		pa(b, a);
+	/*		EZ		
+	int 	i = 0;
+	t_item	min;
+	min = b->item[0];
+
+	show_stack(*b, "B (FINAL)");
+	while (i < b->len)
+	{
+		if (b->item[i].data < min.data)
+			min = b->item[i];
+		i++;
+	}
+	i = min.i;
+	while (i-- >= 0)
+		rb(b, inst);*/
+	/*		FIN EZ	*/
+	while (b->len)
+		pa(b, a, inst);
+}
+
+void	sort(t_stack *a, t_stack *b, char **inst, int count)
+{
+	(void)b;
+	if (count == 2)
+		sort_two(a, inst, 1);
+	else if (count == 3)
+		sort_three_a(a, inst);
+	else if (count == 4)
+		sort_four_a(a, inst);
 }
 
 int	main(int ac, char **av)
 {
-	int		i;
-	int		j;
 	t_stack	a;
 	t_stack	b;
+	char	*inst;
 
-	if (ac > 2)
+	if (ac >= 3 && ac <= 501)
 	{
-		i = 0;
-		while (i < ac - 1)
-			(i)++;
-		a.s = (t_items *)malloc(sizeof(t_items) * i);
-		if (!a.s)
-			return (0);
-		b.s = (t_items *)malloc(sizeof(t_items) * i);
-		if (!b.s)
-			return (free(a.s), 0);
-		a.len = i--;
-		b.len = 0;
-		j = 0;
-		while (i >= 0)
-		{
-			a.s[i].data = ft_atoi(av[j++ + 1]);
-			a.s[i].cost = -1;
-			a.s[i].i = i--;
-		}
-		if (ac - 1 <= 3)
-			push_swap_manual(&a, &b, ac - 1);
-		else
-			push_swap(&a, &b);
+		//if (!check_av(ac - 1, &av[1]))
+		//{	
+		//	ft_printf("Error\n");
+		//	return (0);
+		//}
+		init_stack(&a);
+		init_stack(&b);
+		fill_stack(&a, ac - 1, &av[1]);
+		//show_stack(a, "A");
+		//show_stack(b, "B");
+		if (ac <= 5) // && !is_sort(a, 1))
+			sort(&a, &b, &inst, ac - 1);
+		else // if (!is_sort(a, 1))
+			push_swap(&a, &b, &inst);
+		optimize(&inst);
+		if (inst)
+			ft_printf("%s", inst);
+		//show_stack(a, "A");
+		//show_stack(b, "B");
 	}
 	return (0);
 }

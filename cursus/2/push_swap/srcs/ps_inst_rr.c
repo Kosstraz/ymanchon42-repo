@@ -6,7 +6,7 @@
 /*   By: ymanchon <ymanchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 15:23:52 by ymanchon          #+#    #+#             */
-/*   Updated: 2024/06/13 18:58:42 by ymanchon         ###   ########.fr       */
+/*   Updated: 2024/07/03 12:04:55 by ymanchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,26 +21,26 @@ static void	rev_r(t_stack *s)
 	i = len - 2;
 	while (i >= 0)
 	{
-		swap(&(s->s[len - 1]), &(s->s[i]));
+		swap(&(s->item[len - 1]), &(s->item[i]));
 		i--;
 	}
 }
 
-inline void	rra(t_stack *a)
+inline void	rra(t_stack *a, char **ops)
 {
-	ft_printf("rra\n");
+	*ops = ft_strsjoin(*ops, "rra\n");
 	rev_r(a);
 }
 
-inline void	rrb(t_stack *b)
+inline void	rrb(t_stack *b, char **ops)
 {
-	ft_printf("rrb\n");
+	*ops = ft_strsjoin(*ops, "rrb\n");
 	rev_r(b);
 }
 
-inline void	rrr(t_stack *a, t_stack *b)
+inline void	rrr(t_stack *a, t_stack *b, char **ops)
 {
-	ft_printf("rrr\n");
-	rra(a);
-	rrb(b);
+	*ops = ft_strsjoin(*ops, "rrr\n");
+	rev_r(a);
+	rev_r(b);
 }

@@ -6,7 +6,7 @@
 #    By: bama <bama@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/13 16:21:19 by ymanchon          #+#    #+#              #
-#    Updated: 2024/06/17 11:11:21 by bama             ###   ########.fr        #
+#    Updated: 2024/06/30 12:00:41 by bama             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,73 +16,79 @@ CC =	cc
 
 AR =  ar -rcs
 
-SRCS =  ./srcs/ft_atoi.c \
-		./srcs/ft_bzero.c \
-		./srcs/ft_calloc.c \
-		./srcs/ft_isalnum.c \
-		./srcs/ft_isalpha.c \
-		./srcs/ft_isascii.c \
-		./srcs/ft_isdigit.c \
-		./srcs/ft_isprint.c \
-		./srcs/ft_itoa.c \
-		./srcs/ft_memchr.c \
-		./srcs/ft_memcmp.c \
-		./srcs/ft_memcpy.c \
-		./srcs/ft_memmove.c \
-		./srcs/ft_memset.c \
-		./srcs/ft_putchar_fd.c \
-		./srcs/ft_putendl_fd.c \
-		./srcs/ft_putnbr_fd.c \
-		./srcs/ft_putstr_fd.c \
-		./srcs/ft_split.c \
-		./srcs/ft_strchr.c \
-		./srcs/ft_strdup.c \
-		./srcs/ft_striteri.c \
-		./srcs/ft_strjoin.c \
-		./srcs/ft_strlen.c \
-		./srcs/ft_strmapi.c \
-		./srcs/ft_strncmp.c \
-		./srcs/ft_strrchr.c \
-		./srcs/ft_strtrim.c \
-		./srcs/ft_strlcpy.c \
-		./srcs/ft_strlcat.c \
-		./srcs/ft_substr.c \
-		./srcs/ft_tolower.c \
-		./srcs/ft_toupper.c \
-		./srcs/ft_strnstr.c \
-		./binary_tree/btree_apply_infix.c \
+SRCS = 	./binary_tree/btree_apply_infix.c \
 		./binary_tree/btree_apply_prefix.c \
 		./binary_tree/btree_apply_suffix.c \
+		./binary_tree/btree_cmp.c \
 		./binary_tree/btree_create_node.c \
 		./binary_tree/btree_insert_data.c \
 		./binary_tree/btree_search_item.c \
 		./binary_tree/btree_size.c \
 		./binary_tree/btree_strict_size.c \
-		./binary_tree/btree_cmp.c \
 		./gnl/get_next_line_utils_bonus.c \
 		./gnl/get_next_line_bonus.c \
-		./others/ft_count_words.c \
-		./others/ft_intlen.c \
-		./others/ft_convert_base2.c \
-		./others/ft_convert_base.c \
+		./lst/ft_lstadd_back_bonus.c \
+		./lst/ft_lstadd_front_bonus.c \
+		./lst/ft_lstclear_bonus.c \
+		./lst/ft_lstdelone_bonus.c \
+		./lst/ft_lstiter_bonus.c \
+		./lst/ft_lstlast_bonus.c \
+		./lst/ft_lstmap_bonus.c \
+		./lst/ft_lstnew_bonus.c \
+		./lst/ft_lstsize_bonus.c \
+		./mem/dfree.c \
+		./mem/freemen.c \
+		./mem/ft_bzero.c \
+		./mem/ft_calloc.c \
+		./mem/ft_memchr.c \
+		./mem/ft_memcmp.c \
+		./mem/ft_memcpy.c \
+		./mem/ft_memmove.c \
+		./mem/ft_memset.c \
 		./parsing/ft_isspace.c \
 		./parsing/ft_rev_isspace.c \
 		./parsing/ft_rev_isspaceptr.c \
-
-SRCS_BONUS =	./bonus/ft_lstadd_back_bonus.c \
-				./bonus/ft_lstadd_front_bonus.c \
-				./bonus/ft_lstclear_bonus.c \
-				./bonus/ft_lstdelone_bonus.c \
-				./bonus/ft_lstiter_bonus.c \
-				./bonus/ft_lstlast_bonus.c \
-				./bonus/ft_lstmap_bonus.c \
-				./bonus/ft_lstnew_bonus.c \
-				./bonus/ft_lstsize_bonus.c \
+		./parsing/owsequence.c \
+		./str/ft_split.c \
+		./str/ft_strchr.c \
+		./str/ft_strdup.c \
+		./str/ft_striteri.c \
+		./str/ft_strjoin.c \
+		./str/ft_strsjoin.c \
+		./str/ft_strlen.c \
+		./str/ft_strmapi.c \
+		./str/ft_strncmp.c \
+		./str/ft_strrchr.c \
+		./str/ft_strtrim.c \
+		./str/ft_strlcpy.c \
+		./str/ft_strlcat.c \
+		./str/ft_strnstr.c \
+		./str/ft_substr.c \
+		./str/strdelete.c \
+		./str/strerase.c \
+		./str/strinsert.c \
+		./utils/ft_abs.c \
+		./utils/ft_count_words.c \
+		./utils/ft_intlen.c \
+		./utils/ft_convert_base2.c \
+		./utils/ft_convert_base.c \
+		./zbasic/ft_atoi.c \
+		./zbasic/ft_isalnum.c \
+		./zbasic/ft_isalpha.c \
+		./zbasic/ft_isascii.c \
+		./zbasic/ft_isdigit.c \
+		./zbasic/ft_isprint.c \
+		./zbasic/ft_itoa.c \
+		./zbasic/ft_tolower.c \
+		./zbasic/ft_toupper.c \
+		./zbasic/ft_putchar_fd.c \
+		./zbasic/ft_putendl_fd.c \
+		./zbasic/ft_putnbr_fd.c \
+		./zbasic/ft_putstr_fd.c \
 
 OBJS_DIR =	objs
 
 OBJS =			$(SRCS:%.c=$(OBJS_DIR)/%.o)
-OBJS_BONUS =	$(SRCS_BONUS:%.c=$(OBJS_DIR)/%.o)
 
 INCLUDES = -I .
 
@@ -109,7 +115,4 @@ fclean: clean
 
 re: fclean all
 
-bonus: all $(OBJS_BONUS)
-	$(AR) -o $(NAME) $(OBJS_BONUS)
-
-.PHONY: all clean fclean re bonus
+.PHONY: all clean fclean re

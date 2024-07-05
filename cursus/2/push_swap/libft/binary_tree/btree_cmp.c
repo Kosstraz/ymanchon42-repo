@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   btree_cmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymanchon <ymanchon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bama <bama@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 17:19:55 by ymanchon          #+#    #+#             */
-/*   Updated: 2024/06/13 17:40:13 by ymanchon         ###   ########.fr       */
+/*   Updated: 2024/06/18 11:36:44 by bama             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "btree.h"
+#include "libft.h"
 
 int	btree_cmp(T_BTREE a, T_BTREE b)
 {
