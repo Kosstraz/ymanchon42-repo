@@ -6,7 +6,7 @@
 /*   By: ymanchon <ymanchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 12:01:17 by ymanchon          #+#    #+#             */
-/*   Updated: 2024/07/05 19:04:41 by ymanchon         ###   ########.fr       */
+/*   Updated: 2024/07/06 14:26:04 by ymanchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,15 @@ void	calcul_cost(t_stack *a, const t_stack *b);
 int		find_poor(const t_stack *a);
 void	poor_at_top(t_stack *a, char **inst, int poor_i);
 void	place_poor(t_stack *a, t_stack *b, char **inst, int poor_i);
+
+/*
+	UTILS
+*/
+
+char	top_of_max(t_stack *a, t_stack *b, char **inst, int poor_i);
+char	sub_of_min(t_stack *a, t_stack *b, char **inst, int poor_i);
+void	set_offset(t_stack *b, char **inst, int i);
+void	final_offset(t_stack *b, char **inst);
 
 /*
 	OPTI

@@ -6,11 +6,27 @@
 /*   By: ymanchon <ymanchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 15:33:11 by ymanchon          #+#    #+#             */
-/*   Updated: 2024/07/05 19:01:54 by ymanchon         ###   ########.fr       */
+/*   Updated: 2024/07/06 16:08:07 by ymanchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+static int	find_mid(const t_item item, const t_stack *b)
+{
+	int	i;
+
+	if (item.data > b->item[b->len - 1].data && item.data < b->item[0].data)
+		return (b->len - 1);
+	i = 0;
+	while (i < b->len)
+	{
+		if (item.data > b->item[i].data && item.data < b->item[i + 1].data)
+			return (i);
+		i++;
+	}
+	return (0);
+}
 
 void	calcul_cost(t_stack *a, const t_stack *b)
 {
@@ -25,9 +41,7 @@ void	calcul_cost(t_stack *a, const t_stack *b)
 			cost = (i + 2);
 		else
 			cost = (a->len - i);
-		j = b->len - 1;
-		while (j >= 0 && a->item[i].data < b->item[j].data)
-			j--;
+		j = find_mid(a->item[i], b);
 		if (j < b->len / 2)
 			cost += (j + 1);
 		else
@@ -72,39 +86,24 @@ void	poor_at_top(t_stack *a, char **inst, int poor_i)
 
 void	place_poor(t_stack *a, t_stack *b, char **inst, int poor_i)
 {
-	int	bool_;
-	int	i;
-	int	j;
+	int		i;
+	int		bool_;
 
-	i = 0;
-	if (a->item[poor_i].data > b->item[b->len - 1].data)
+	if (sub_of_min(a, b, inst, poor_i) || top_of_max(a, b, inst, poor_i))
+		return ;
+	else if (a->item[poor_i].data > b->item[b->len - 1].data
+		&& a->item[poor_i].data < b->item[0].data)
 		return (poor_at_top(a, inst, poor_i), pb(a, b, inst));
+	i = 0;
 	bool_ = 0;
 	while (i < b->len && !bool_)
 	{
-		if (a->item[poor_i].data < b->item[i].data)
+		if (i < b->len - 1 && a->item[poor_i].data > b->item[i].data
+			&& a->item[poor_i].data < b->item[i + 1].data)
 		{
-			j = 0;
-			if (i < b->len / 2)
-			{
-				while (j++ < i)
-					rrb(b, inst);
-				poor_at_top(a, inst, poor_i);
-				pb(a, b, inst);
-				j = 0;
-				//while (j++ < i + 1)
-					//rb(b, inst);
-			}
-			else
-			{
-				while (j++ <= b->len - 1 - i)
-					rb(b, inst);
-				poor_at_top(a, inst, poor_i);
-				pb(a, b, inst);
-				j = 0;
-				//while (j++ < b->len - 1 - i)
-					//rrb(b, inst);
-			}
+			set_offset(b, inst, i);
+			poor_at_top(a, inst, poor_i);
+			pb(a, b, inst);
 			bool_ = 1;
 		}
 		i++;

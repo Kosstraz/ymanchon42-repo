@@ -6,7 +6,7 @@
 #    By: ymanchon <ymanchon@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/13 16:21:19 by ymanchon          #+#    #+#              #
-#    Updated: 2024/07/05 15:33:30 by ymanchon         ###   ########.fr        #
+#    Updated: 2024/07/06 13:42:51 by ymanchon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,6 +32,7 @@ SRCS =	./srcs/ps_inst_p.c \
 		./srcs/ps_inst_rr.c \
 		./srcs/ps_inst_s.c \
 		./srcs/ps_parsing.c \
+		./srcs/ps_utils.c \
 		./srcs/ps_sort.c \
 		./srcs/ps_big_sort.c \
 		./srcs/ps_handle.c \

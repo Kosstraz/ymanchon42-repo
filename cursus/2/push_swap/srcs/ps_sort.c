@@ -6,30 +6,11 @@
 /*   By: ymanchon <ymanchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 15:00:27 by ymanchon          #+#    #+#             */
-/*   Updated: 2024/07/05 17:50:24 by ymanchon         ###   ########.fr       */
+/*   Updated: 2024/07/06 14:21:59 by ymanchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-/*void	is_sort(t_stack *s, int order)
-{
-	int	i;
-
-	i = 0;
-	while (i < s->len)
-	{
-		if (order > 0)
-		{
-			if
-		}
-		else
-		{
-			
-		}
-		i++;
-	}
-}*/
 
 void	sort_two(t_stack *s, char **inst, int order)
 {
