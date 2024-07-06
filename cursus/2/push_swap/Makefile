@@ -6,7 +6,7 @@
 #    By: ymanchon <ymanchon@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/13 16:21:19 by ymanchon          #+#    #+#              #
-#    Updated: 2024/07/06 13:42:51 by ymanchon         ###   ########.fr        #
+#    Updated: 2024/07/06 17:30:56 by ymanchon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,6 +33,7 @@ SRCS =	./srcs/ps_inst_p.c \
 		./srcs/ps_inst_s.c \
 		./srcs/ps_parsing.c \
 		./srcs/ps_utils.c \
+		./srcs/ps_utils2.c \
 		./srcs/ps_sort.c \
 		./srcs/ps_big_sort.c \
 		./srcs/ps_handle.c \
@@ -47,7 +48,7 @@ DEPS =	$(OBJS:$(OBJS_DIR)/%.obj=%.d)
 
 INCLUDES =	-I $(LIBFT_P)/ -I .
 
-CFLAGS =	-MMD -Wall -Wextra #-Werror
+CFLAGS =	-MMD -Wall -Wextra -Werror
 
 LIBFT_P	=	./libft
 

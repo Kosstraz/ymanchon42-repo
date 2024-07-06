@@ -6,7 +6,7 @@
 /*   By: ymanchon <ymanchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 15:00:27 by ymanchon          #+#    #+#             */
-/*   Updated: 2024/07/06 14:21:59 by ymanchon         ###   ########.fr       */
+/*   Updated: 2024/07/06 16:31:31 by ymanchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,26 +27,30 @@ void	sort_two(t_stack *s, char **inst, int order)
 void	sort_three_a(t_stack *a, char **inst)
 {
 	sort_two(a, inst, 1);
-	ra(a, inst);
-	sort_two(a, inst, 1);
-	rra(a, inst);
+	if (a->item[a->len - 3].data < a->item[a->len - 2].data)
+	{
+		sort_two(a, inst, 1);
+		rra(a, inst);
+	}
 	sort_two(a, inst, 1);
 }
 
 void	sort_three_b(t_stack *b, char **inst)
 {
 	sort_two(b, inst, -1);
-	rb(b, inst);
-	sort_two(b, inst, -1);
-	rrb(b, inst);
+	if (b->item[b->len - 3].data > b->item[b->len - 2].data)
+	{
+		sort_two(b, inst, -1);
+		rrb(b, inst);
+	}
 	sort_two(b, inst, -1);
 }
 
 void	sort_four_a(t_stack *s, char **inst)
 {
 	sort_three_a(s, inst);
-	ra(s, inst);
-	sort_three_a(s, inst);
 	rra(s, inst);
+	sort_three_a(s, inst);
+	ra(s, inst);
 	sort_three_a(s, inst);
 }

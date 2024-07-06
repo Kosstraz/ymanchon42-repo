@@ -6,7 +6,7 @@
 /*   By: ymanchon <ymanchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 12:08:29 by ymanchon          #+#    #+#             */
-/*   Updated: 2024/07/06 15:00:43 by ymanchon         ###   ########.fr       */
+/*   Updated: 2024/07/06 17:43:02 by ymanchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,7 @@ void	push_swap(t_stack *a, t_stack *b, char **inst)
 
 	pb(a, b, inst);
 	pb(a, b, inst);
-	pb(a, b, inst);
-	sort_three_b(b, inst);
+	sort_two(b, inst, -1);
 	while (a->len)
 	{
 		calcul_cost(a, b);
@@ -58,14 +57,13 @@ int	main(int ac, char **av)
 		init_stack(&a);
 		init_stack(&b);
 		fill_stack(&a, ac - 1, &av[1]);
-		if (ac <= 5) // && !is_sort(a, 1))
+		if (ac <= 5)
 			sort(&a, &b, &inst, ac - 1);
-		else // if (!is_sort(a, 1))
+		else
 			push_swap(&a, &b, &inst);
 		optimize(&inst);
 		if (inst)
 			ft_printf("%s", inst);
-		//show_stack(a, "A");
 	}
 	return (0);
 }

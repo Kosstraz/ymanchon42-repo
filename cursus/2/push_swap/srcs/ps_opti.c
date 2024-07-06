@@ -6,7 +6,7 @@
 /*   By: ymanchon <ymanchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 16:16:13 by bama              #+#    #+#             */
-/*   Updated: 2024/07/06 14:46:54 by ymanchon         ###   ########.fr       */
+/*   Updated: 2024/07/06 17:39:59 by ymanchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,11 @@ void	optimize(char **ops)
 		opti(ops, handle("ra\n", "rra\n", ""));
 		opti(ops, handle("rrb\n", "rb\n", ""));
 		opti(ops, handle("rra\n", "ra\n", ""));
+		opti(ops, handle("pb\n", "pa\n", ""));
+		opti(ops, handle("pa\n", "pb\n", ""));
 		opti(ops, handle("sa\n", "sb\n", "ss\n"));
 		opti(ops, handle("sa\n", "sb\n", "ss\n"));
+		opti(ops, handle("ra\n", "rb\n", "rr\n"));
+		opti(ops, handle("rra\n", "rrb\n", "rrr\n"));
 	}
 }

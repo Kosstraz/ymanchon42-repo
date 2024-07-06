@@ -6,7 +6,7 @@
 /*   By: ymanchon <ymanchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 12:01:17 by ymanchon          #+#    #+#             */
-/*   Updated: 2024/07/06 14:26:04 by ymanchon         ###   ########.fr       */
+/*   Updated: 2024/07/06 17:08:06 by ymanchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,8 @@ char	top_of_max(t_stack *a, t_stack *b, char **inst, int poor_i);
 char	sub_of_min(t_stack *a, t_stack *b, char **inst, int poor_i);
 void	set_offset(t_stack *b, char **inst, int i);
 void	final_offset(t_stack *b, char **inst);
+int		cost_top_of_max(const t_item item, const t_stack *b);
+int		cost_sub_of_min(const t_item item, const t_stack *b);
 
 /*
 	OPTI

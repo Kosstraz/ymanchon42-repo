@@ -6,7 +6,7 @@
 /*   By: ymanchon <ymanchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 13:42:38 by ymanchon          #+#    #+#             */
-/*   Updated: 2024/07/06 15:10:38 by ymanchon         ###   ########.fr       */
+/*   Updated: 2024/07/06 17:32:11 by ymanchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,6 @@ void	final_offset(t_stack *b, char **inst)
 		while (i++ < min.i)
 			rrb(b, inst);
 	else
-		while (i++ < b->len - 1 - min.i)
+		while (i++ <= b->len - 1 - min.i)
 			rb(b, inst);
 }

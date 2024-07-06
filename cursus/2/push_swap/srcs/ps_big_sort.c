@@ -6,7 +6,7 @@
 /*   By: ymanchon <ymanchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 15:33:11 by ymanchon          #+#    #+#             */
-/*   Updated: 2024/07/06 16:08:07 by ymanchon         ###   ########.fr       */
+/*   Updated: 2024/07/06 17:29:03 by ymanchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,12 @@ static int	find_mid(const t_item item, const t_stack *b)
 {
 	int	i;
 
+	i = cost_sub_of_min(item, b);
+	if (i >= 0)
+		return (i);
+	i = cost_top_of_max(item, b);
+	if (i >= 0)
+		return (i);
 	if (item.data > b->item[b->len - 1].data && item.data < b->item[0].data)
 		return (b->len - 1);
 	i = 0;
