@@ -6,7 +6,7 @@
 /*   By: ymanchon <ymanchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 20:09:36 by ymanchon          #+#    #+#             */
-/*   Updated: 2024/07/07 14:28:08 by ymanchon         ###   ########.fr       */
+/*   Updated: 2024/07/07 16:45:27 by ymanchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -204,10 +204,12 @@ int		owsequence_i(const char *text, const char *mask, int *i);
 int		owsequence_si(const char *text, const char *mask, int *i, int size);
 int		owsequence_s(const char *text, const char *mask, int size);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
+int		ft_strcmp(const char *s1, const char *s2);
 char	*ft_strchr(const char *str, const char c);
 char	*ft_strrchr(const char *str, const char c);
 char	*ft_strnstr(const char *big, const char *little, size_t len);
 char	*ft_strdup(const char *str);
+char	*ft_strndup(const char *str, unsigned int n);
 char	*ft_substr(const char *s, unsigned int start, size_t n);
 char	*ft_strjoin(const char *s1, const char *s2);
 size_t	ft_strlen(const char *str);

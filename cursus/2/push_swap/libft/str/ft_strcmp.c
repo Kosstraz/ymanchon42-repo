@@ -1,41 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strsjoin.c                                      :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ymanchon <ymanchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/18 20:10:42 by ymanchon          #+#    #+#             */
-/*   Updated: 2024/07/07 17:09:19 by ymanchon         ###   ########.fr       */
+/*   Created: 2024/07/07 16:45:05 by ymanchon          #+#    #+#             */
+/*   Updated: 2024/07/07 16:45:37 by ymanchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strsjoin(char *s1, const char *s2)
+int	ft_strcmp(const char *s1, const char *s2)
 {
-	char	*ret;
-	int		size1;
-	int		size2;
-	int		i;
-	int		n;
+	unsigned long	i;
 
-	if (!s1)
-		return (ft_strdup(s2));
-	size1 = ft_strlen(s1);
-	size2 = ft_strlen(s2);
-	ret = (char *)malloc(sizeof(char) * (size1 + size2 + 1));
-	if (!ret)
-		return ((char *)0);
 	i = 0;
-	n = 0;
-	while (s1[i])
-		ret[n++] = s1[i++];
-	i = 0;
-	while (s2[i])
-		ret[n++] = s2[i++];
-	ret[n] = '\0';
-	if (s1)
-		free(s1);
-	return (ret);
+	while (s1[i] || s2[i])
+	{
+		if ((unsigned char)s1[i] != (unsigned char)s2[i])
+			return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+		i++;
+	}
+	return (0);
 }

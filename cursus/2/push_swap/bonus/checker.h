@@ -1,33 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   checker.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ymanchon <ymanchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/18 20:10:37 by ymanchon          #+#    #+#             */
-/*   Updated: 2024/07/07 17:55:52 by ymanchon         ###   ########.fr       */
+/*   Created: 2024/07/07 15:54:47 by ymanchon          #+#    #+#             */
+/*   Updated: 2024/07/07 16:44:07 by ymanchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#ifndef CHECKER_H
+# define CHECKER_H
 
-char	*ft_strdup(const char *str)
-{
-	char			*ret;
-	unsigned long	alloc_size;
-	unsigned long	i;
+# include "push_swap.h"
 
-	alloc_size = ft_strlen(str);
-	ret = (char *)malloc(sizeof(char) * (alloc_size + 1));
-	if (!ret)
-		return (NULL);
-	i = 0;
-	while (str[i])
-	{
-		ret[i] = str[i];
-		i++;
-	}
-	ret[i] = '\0';
-	return (ret);
-}
+#endif

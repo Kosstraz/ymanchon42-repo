@@ -6,7 +6,7 @@
 /*   By: ymanchon <ymanchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 12:08:29 by ymanchon          #+#    #+#             */
-/*   Updated: 2024/07/07 15:31:37 by ymanchon         ###   ########.fr       */
+/*   Updated: 2024/07/07 18:10:46 by ymanchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,12 @@ int	main(int ac, char **av)
 	t_stack	b;
 	char	*inst;
 
-	if (ac >= 3 && ac <= N + 1)
+	inst = NULL;
+	if (ac >= 2 && ac <= N + 1)
 	{
 		if (!check_av(ac - 1, &av[1]) || same_digit(ac - 1, &av[1]))
 		{	
-			ft_printf("Error\n");
+			write(2, "Error\n", 7);
 			return (0);
 		}
 		init_stack(&a);
@@ -65,6 +66,7 @@ int	main(int ac, char **av)
 		optimize(&inst);
 		if (inst)
 			ft_printf("%s", inst);
+		free(inst);
 	}
 	return (0);
 }

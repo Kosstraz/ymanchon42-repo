@@ -6,7 +6,7 @@
 /*   By: ymanchon <ymanchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 14:03:04 by ymanchon          #+#    #+#             */
-/*   Updated: 2024/07/05 15:16:58 by ymanchon         ###   ########.fr       */
+/*   Updated: 2024/07/07 16:35:52 by ymanchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,18 +30,24 @@ inline static void	s(t_stack *s, int len)
 inline void	sa(t_stack *a, char **ops)
 {
 	*ops = ft_strsjoin(*ops, "sa\n");
+	if (!*ops)
+		exit(1);
 	s(a, a->len);
 }
 
 inline void	sb(t_stack *b, char **ops)
 {
 	*ops = ft_strsjoin(*ops, "sb\n");
+	if (!*ops)
+		exit(1);
 	s(b, b->len);
 }
 
 inline void	ss(t_stack *a, t_stack *b, char **ops)
 {
 	*ops = ft_strsjoin(*ops, "ss\n");
+	if (!*ops)
+		exit(1);
 	s(a, a->len);
 	s(b, b->len);
 }

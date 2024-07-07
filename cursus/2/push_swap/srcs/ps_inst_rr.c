@@ -6,7 +6,7 @@
 /*   By: ymanchon <ymanchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 15:23:52 by ymanchon          #+#    #+#             */
-/*   Updated: 2024/07/03 12:04:55 by ymanchon         ###   ########.fr       */
+/*   Updated: 2024/07/07 16:35:57 by ymanchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,18 +29,24 @@ static void	rev_r(t_stack *s)
 inline void	rra(t_stack *a, char **ops)
 {
 	*ops = ft_strsjoin(*ops, "rra\n");
+	if (!*ops)
+		exit(1);
 	rev_r(a);
 }
 
 inline void	rrb(t_stack *b, char **ops)
 {
 	*ops = ft_strsjoin(*ops, "rrb\n");
+	if (!*ops)
+		exit(1);
 	rev_r(b);
 }
 
 inline void	rrr(t_stack *a, t_stack *b, char **ops)
 {
 	*ops = ft_strsjoin(*ops, "rrr\n");
+	if (!*ops)
+		exit(1);
 	rev_r(a);
 	rev_r(b);
 }

@@ -1,41 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strsjoin.c                                      :+:      :+:    :+:   */
+/*   ft_strndup.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ymanchon <ymanchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/18 20:10:42 by ymanchon          #+#    #+#             */
-/*   Updated: 2024/07/07 17:09:19 by ymanchon         ###   ########.fr       */
+/*   Created: 2024/07/07 16:14:45 by ymanchon          #+#    #+#             */
+/*   Updated: 2024/07/07 16:19:17 by ymanchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strsjoin(char *s1, const char *s2)
+char	*ft_strndup(const char *str, unsigned int n)
 {
-	char	*ret;
-	int		size1;
-	int		size2;
-	int		i;
-	int		n;
+	char			*ret;
+	unsigned long	alloc_size;
+	unsigned long	i;
 
-	if (!s1)
-		return (ft_strdup(s2));
-	size1 = ft_strlen(s1);
-	size2 = ft_strlen(s2);
-	ret = (char *)malloc(sizeof(char) * (size1 + size2 + 1));
+	alloc_size = ft_strlen(str);
+	ret = (char *)malloc(sizeof(char) * (n + 1));
 	if (!ret)
-		return ((char *)0);
+		return (NULL);
 	i = 0;
-	n = 0;
-	while (s1[i])
-		ret[n++] = s1[i++];
-	i = 0;
-	while (s2[i])
-		ret[n++] = s2[i++];
-	ret[n] = '\0';
-	if (s1)
-		free(s1);
+	while (str[i] && i < n)
+	{
+		ret[i] = str[i];
+		i++;
+	}
+	ret[i] = '\0';
 	return (ret);
 }

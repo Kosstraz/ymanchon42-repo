@@ -6,7 +6,7 @@
 #    By: ymanchon <ymanchon@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/13 16:21:19 by ymanchon          #+#    #+#              #
-#    Updated: 2024/07/07 13:59:37 by ymanchon         ###   ########.fr        #
+#    Updated: 2024/07/07 18:13:01 by ymanchon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,11 @@ YELLO	=	\e[33m
 
 NAME	=	push_swap
 
+CHECKER = checker
+
 CC =	cc
+
+PS =	./srcs/push_swap.c \
 
 SRCS =	./srcs/ps_inst_p.c \
 		./srcs/ps_inst_r.c \
@@ -38,17 +42,22 @@ SRCS =	./srcs/ps_inst_p.c \
 		./srcs/ps_big_sort.c \
 		./srcs/ps_handle.c \
 		./srcs/ps_opti.c \
-		./srcs/push_swap.c \
+	
+SRCS_BONUS =	./bonus/checker.c \
 
 OBJS_DIR =		objs
 
 OBJS =	$(SRCS:%.c=$(OBJS_DIR)/%.obj)
 
+OBJS_PS =	$(PS:%.c=$(OBJS_DIR)/%.obj)
+
+OBJS_BONUS =	$(SRCS_BONUS:%.c=$(OBJS_DIR)/%.obj)
+
 DEPS =	$(OBJS:$(OBJS_DIR)/%.obj=%.d)
 
 INCLUDES =	-I $(LIBFT_P)/ -I .
 
-CFLAGS =	-MMD -Wall -Wextra -Werror
+CFLAGS =	-MMD -Wall -Wextra #-Werror
 
 LIBFT_P	=	./libft
 
@@ -62,9 +71,13 @@ SMAKE =	make --no-print-directory
 
 all: _colorY_ $(NAME) _colorG_
 
-$(NAME): $(OBJS)
+$(NAME): $(OBJS_PS) $(OBJS)
 	make -C $(LIBFT_P)
-	$(CC) $(CFLAGS) $(OBJS) $(LIB) -o $@
+	$(CC) $(CFLAGS) $(OBJS_PS) $(OBJS) $(LIB) -o $@
+
+$(CHECKER): $(OBJS) $(OBJS_BONUS)
+	make -C $(LIBFT_P)
+	$(CC) $(CFLAGS) $(OBJS) $(OBJS_BONUS) $(LIB) -o $@
 
 $(OBJS_DIR)/%.obj: %.c
 	@mkdir -p $(@D)
@@ -86,9 +99,12 @@ clean: _colorR_
 fclean: clean
 	rm $(LIB) -f
 	rm $(NAME) -f
+	rm $(CHECKER) -f
 	@echo "Tout à été supprimé... 🗑️\n$(CLASSIC)"
 
 re: fclean all
 
-.PHONY: all clean fclean re
+bonus: _colorY_ $(CHECKER) _colorG_
+
+.PHONY: all clean fclean re bonus
 -include $(DEPS)
