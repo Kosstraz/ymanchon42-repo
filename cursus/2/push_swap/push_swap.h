@@ -6,14 +6,16 @@
 /*   By: ymanchon <ymanchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 12:01:17 by ymanchon          #+#    #+#             */
-/*   Updated: 2024/07/06 17:08:06 by ymanchon         ###   ########.fr       */
+/*   Updated: 2024/07/07 14:03:55 by ymanchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 
-# define N 500
+# ifndef N
+#  define N 500
+# endif
 
 # include <stdlib.h>
 # include <stdio.h>
@@ -54,7 +56,8 @@ void	show_stack(t_stack stack, const char *name);
 void	sort_two(t_stack *s, char **inst, int order);
 void	sort_three_a(t_stack *a, char **inst);
 void	sort_three_b(t_stack *b, char **inst);
-void	sort_four_a(t_stack *a, char **inst);
+void	sort_four(t_stack *a, t_stack *b, char **inst);
+void	sort_five(t_stack *a, t_stack *b, char **inst);
 
 /*
 	BIG SORT
@@ -87,6 +90,7 @@ void	optimize(char **inst);
 */
 
 char	check_av(int ac, char **av);
+char	same_digit(const int ac, char **av);
 
 /*
 	INSTRUCTIONS

@@ -6,7 +6,7 @@
 /*   By: ymanchon <ymanchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 15:00:27 by ymanchon          #+#    #+#             */
-/*   Updated: 2024/07/06 16:31:31 by ymanchon         ###   ########.fr       */
+/*   Updated: 2024/07/07 13:22:03 by ymanchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,52 @@ void	sort_three_b(t_stack *b, char **inst)
 	sort_two(b, inst, -1);
 }
 
-void	sort_four_a(t_stack *s, char **inst)
+void	sort_four(t_stack *a, t_stack *b, char **inst)
 {
-	sort_three_a(s, inst);
-	rra(s, inst);
-	sort_three_a(s, inst);
-	ra(s, inst);
-	sort_three_a(s, inst);
+	int		i;
+	t_item	min;
+
+	i = 0;
+	min = a->item[0];
+	while (i < a->len)
+	{
+		if (min.data > a->item[i].data)
+			min = a->item[i];
+		i++;
+	}
+	i = 0;
+	if (min.i < a->len / 2)
+		while (i++ < min.i + 1)
+			rra(a, inst);
+	else
+		while (i++ < a->len - 1 - min.i)
+			ra(a, inst);
+	pb(a, b, inst);
+	sort_three_a(a, inst);
+	pa(b, a, inst);
+}
+
+void	sort_five(t_stack *a, t_stack *b, char **inst)
+{
+	int		i;
+	t_item	min;
+
+	i = 0;
+	min = a->item[0];
+	while (i < a->len)
+	{
+		if (min.data > a->item[i].data)
+			min = a->item[i];
+		i++;
+	}
+	i = 0;
+	if (min.i < a->len / 2)
+		while (i++ < min.i + 1)
+			rra(a, inst);
+	else
+		while (i++ < a->len - 1 - min.i)
+			ra(a, inst);
+	pb(a, b, inst);
+	sort_four(a, b, inst);
+	pa(b, a, inst);
 }

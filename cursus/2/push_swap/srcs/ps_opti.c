@@ -6,7 +6,7 @@
 /*   By: ymanchon <ymanchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 16:16:13 by bama              #+#    #+#             */
-/*   Updated: 2024/07/06 17:39:59 by ymanchon         ###   ########.fr       */
+/*   Updated: 2024/07/07 14:03:16 by ymanchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,20 @@ static t_op_handle	handle(char *op1, char *op2, char *new)
 	return (ret);
 }
 
-static void	opti(char **ops, t_op_handle h)
+static void	op_multiplications(int *op1, int *op2, const t_op_handle h)
+{
+	*op1 *= ft_strlen(h.op1);
+	*op2 *= ft_strlen(h.op2);
+}
+
+static void	opti(char **ops, const t_op_handle h)
 {
 	int	i;
 	int	op1;
 	int	op2;
 
-	i = 0;
-	while ((*ops)[i])
+	i = -1;
+	while ((*ops)[++i])
 	{
 		op1 = owsequence(&((*ops)[i]), h.op1);
 		op2 = owsequence(&((*ops)[i + op1 * ft_strlen(h.op1)]), h.op2);
@@ -42,14 +48,12 @@ static void	opti(char **ops, t_op_handle h)
 			}
 			else
 				op2 = op1;
-			op1 *= ft_strlen(h.op1);
-			op2 *= ft_strlen(h.op2);
+			op_multiplications(&op1, &op2, h);
 			*ops = strldelete(*ops, i, op1 + op2);
 			*ops = strlinsert(*ops, h.new, i);
 		}
 		while ((*ops)[i] && (*ops)[i] != '\n')
 			i++;
-		i++;
 	}
 }
 

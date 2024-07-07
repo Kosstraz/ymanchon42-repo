@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bama <bama@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: ymanchon <ymanchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 20:09:36 by ymanchon          #+#    #+#             */
-/*   Updated: 2024/06/30 11:59:47 by bama             ###   ########.fr       */
+/*   Updated: 2024/07/07 14:05:29 by ymanchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ int		btree_size(t_btree *root);
 			/* *						  * */
 			/* **************************** */
 			/* **************************** */
-	
+
 typedef struct s_list
 {
 	void			*content;
@@ -255,7 +255,7 @@ size_t	ft_count_words(const char *s, char sep);
 			/* *						  * */
 			/* **************************** */
 			/* **************************** */
-			
+
 char	*ft_itoa(int n);
 int		ft_atoi(const char *str);
 int		ft_isalnum(int c);
