@@ -6,7 +6,7 @@
 /*   By: ymanchon <ymanchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 12:01:17 by ymanchon          #+#    #+#             */
-/*   Updated: 2024/07/07 14:03:55 by ymanchon         ###   ########.fr       */
+/*   Updated: 2024/07/07 15:34:56 by ymanchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define PUSH_SWAP_H
 
 # ifndef N
-#  define N 500
+#  define N 1000
 # endif
 
 # include <stdlib.h>
