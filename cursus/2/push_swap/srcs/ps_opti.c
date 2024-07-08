@@ -6,7 +6,7 @@
 /*   By: ymanchon <ymanchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 16:16:13 by bama              #+#    #+#             */
-/*   Updated: 2024/07/07 18:10:33 by ymanchon         ###   ########.fr       */
+/*   Updated: 2024/07/08 13:22:11 by ymanchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,11 @@ static void	op_modifications(int *op1, int *op2, const t_op_handle h, int *i)
 static void	opti(char **ops, const t_op_handle h)
 {
 	int	i;
-	int	insert_count;
 	int	op1;
 	int	op2;
 
-	i = -1;
-	while ((*ops)[++i])
+	i = 0;
+	while ((*ops)[i])
 	{
 		op1 = owsequence(&((*ops)[i]), h.op1);
 		op2 = owsequence(&((*ops)[i + op1 * ft_strlen(h.op1)]), h.op2);
@@ -51,14 +50,16 @@ static void	opti(char **ops, const t_op_handle h)
 		{
 			op_modifications(&op1, &op2, h, &i);
 			*ops = strldelete(*ops, i, op1 + op2);
-			insert_count = 0;
-			while (insert_count++ < (int)(op1 / (int)(ft_strlen(h.op1))))
+			op2 = 0;
+			while (op2++ < (int)(op1 / (int)(ft_strlen(h.op1))))
 			{
 				*ops = strlinsert(*ops, h.new, i);
 				i += ft_strlen(h.new);
 			}
 		}
 		while ((*ops)[i] && (*ops)[i] != '\n')
+			i++;
+		if ((*ops)[i])
 			i++;
 	}
 }
