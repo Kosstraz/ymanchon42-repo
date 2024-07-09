@@ -6,7 +6,7 @@
 #    By: ymanchon <ymanchon@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/13 16:21:19 by ymanchon          #+#    #+#              #
-#    Updated: 2024/07/08 18:29:19 by ymanchon         ###   ########.fr        #
+#    Updated: 2024/07/09 15:38:41 by ymanchon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,7 +41,7 @@ DEPS =	$(OBJS:%.obj=%.d)
 
 INCLUDES =	-I ./includes/ -I $(PRINTF_P)/ -I $(LIBFT_P)/ -I ./minilibx/ -I .
 
-CFLAGS =	-Wall -Wextra -MMD #-Werror
+CFLAGS =	-Wall -Wextra -MMD -Werror
 
 LIBFT_P		=	./libft
 PRINTF_P	=	./ft_printf

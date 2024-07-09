@@ -6,7 +6,7 @@
 /*   By: ymanchon <ymanchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 19:35:50 by ymanchon          #+#    #+#             */
-/*   Updated: 2024/07/09 15:32:40 by ymanchon         ###   ########.fr       */
+/*   Updated: 2024/07/09 15:50:48 by ymanchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,8 @@ static void	draw_fractal(t_env *env, int (*fractal_func)(t_env *, t_vec2d))
 					| precision);
 			if (env->psyche)
 				color <<= (color * i * i);
+			else if (!env->psyche && env->zoom != 1)
+				color *= ((int)env->zoom << 4 | (int)env->zoom) << 1;
 			put_pixel_on_image(env, coords.x, coords.y, color);
 			i++;
 			coords.x++;

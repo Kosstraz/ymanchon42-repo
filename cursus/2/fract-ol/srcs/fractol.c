@@ -6,7 +6,7 @@
 /*   By: ymanchon <ymanchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 18:28:08 by ymanchon          #+#    #+#             */
-/*   Updated: 2024/07/09 15:32:04 by ymanchon         ###   ########.fr       */
+/*   Updated: 2024/07/09 15:53:19 by ymanchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int	main(int ac, char **av)
 		ft_printf(NO_FRACTAL);
 	if (ac > 1)
 	{
-		if (is_valid(av[1], &av[2], &env))
+		if (is_valid(av[1], ac, &av[2], &env))
 		{
 			init_env(&env);
 			fractol(&env);

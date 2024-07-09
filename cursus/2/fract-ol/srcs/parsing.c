@@ -6,7 +6,7 @@
 /*   By: ymanchon <ymanchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 18:48:03 by ymanchon          #+#    #+#             */
-/*   Updated: 2024/07/09 15:23:29 by ymanchon         ###   ########.fr       */
+/*   Updated: 2024/07/09 15:53:38 by ymanchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 // 0 invalid
 // 1 valid
-char	is_valid(char *name, char **params, t_env *env)
+char	is_valid(char *name, int ac, char **params, t_env *env)
 {
 	if (!ft_strcmp("julia", ft_strtolower(name)))
 	{
 		env->fractal_model = Julia;
-		if (!params || !params[0])
+		if (ac <= 3)
 			env->kc = set_vec2d(-0.8, 0.156);
 		else
 		{
