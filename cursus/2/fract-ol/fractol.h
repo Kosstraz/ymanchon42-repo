@@ -6,7 +6,7 @@
 /*   By: ymanchon <ymanchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 18:34:41 by ymanchon          #+#    #+#             */
-/*   Updated: 2024/07/09 15:53:14 by ymanchon         ###   ########.fr       */
+/*   Updated: 2024/07/09 15:57:59 by ymanchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ typedef enum e_x11mask
 	Mask_KeyPress = (1L << 0),
 	Mask_KeyRelease = (1L << 1)
 }	t_e_x11mask;
-
 
 typedef enum e_fractal
 {
