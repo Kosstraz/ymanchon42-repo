@@ -1,40 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   ft_abs.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ymanchon <ymanchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/07 19:25:25 by ymanchon          #+#    #+#             */
-/*   Updated: 2024/07/09 15:33:08 by ymanchon         ###   ########.fr       */
+/*   Created: 2024/06/18 16:50:27 by bama              #+#    #+#             */
+/*   Updated: 2024/07/09 15:17:06 by ymanchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fractol.h"
-
-inline t_vec2i	set_vec2i(int x, int y)
+int	ft_abs(int a)
 {
-	t_vec2i	vec2i;
-
-	vec2i.x = x;
-	vec2i.y = y;
-	return (vec2i);
+	if (a < 0)
+		return (-a);
+	return (a);
 }
 
-inline t_vec2d	set_vec2d(double x, double y)
+float	ft_absf(float a)
 {
-	t_vec2d	vec2d;
-
-	vec2d.x = x;
-	vec2d.y = y;
-	return (vec2d);
+	if (a < 0.0f)
+		return (-a);
+	return (a);
 }
 
-void	put_pixel_on_image(t_env *env, int x, int y, int color)
+double	ft_absd(double a)
 {
-	char	*pixel;
-
-	pixel = env->image.addr
-		+ (y * env->image.size_line + x * (env->image.bpp / 8));
-	*(int *)pixel = color;
+	if (a < 0.0)
+		return (-a);
+	return (a);
 }

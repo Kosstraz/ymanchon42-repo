@@ -6,7 +6,7 @@
 #    By: ymanchon <ymanchon@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/13 16:21:19 by ymanchon          #+#    #+#              #
-#    Updated: 2024/07/07 19:22:46 by ymanchon         ###   ########.fr        #
+#    Updated: 2024/07/08 19:36:54 by ymanchon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,9 @@ SRCS = 	./binary_tree/btree_apply_infix.c \
 		./binary_tree/btree_search_item.c \
 		./binary_tree/btree_size.c \
 		./binary_tree/btree_strict_size.c \
+		./ft_maths/ft_abs.c \
+		./ft_maths/ft_lerp.c \
+		./ft_maths/ft_pow.c \
 		./gnl/get_next_line_utils_bonus.c \
 		./gnl/get_next_line_bonus.c \
 		./lst/ft_lstadd_back_bonus.c \
@@ -72,11 +75,12 @@ SRCS = 	./binary_tree/btree_apply_infix.c \
 		./str/strdelete.c \
 		./str/strerase.c \
 		./str/strinsert.c \
-		./utils/ft_abs.c \
 		./utils/ft_count_words.c \
 		./utils/ft_intlen.c \
 		./utils/ft_convert_base2.c \
 		./utils/ft_convert_base.c \
+		./zbasic/ft_atod.c \
+		./zbasic/ft_atof.c \
 		./zbasic/ft_atoi.c \
 		./zbasic/ft_isalnum.c \
 		./zbasic/ft_isalpha.c \

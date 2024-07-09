@@ -6,7 +6,7 @@
 /*   By: ymanchon <ymanchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 20:09:36 by ymanchon          #+#    #+#             */
-/*   Updated: 2024/07/07 19:22:26 by ymanchon         ###   ########.fr       */
+/*   Updated: 2024/07/09 15:17:25 by ymanchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,22 @@ int		btree_left_size(t_btree *root);
 */
 int		btree_right_size(t_btree *root);
 int		btree_size(t_btree *root);
+
+			/* **************************** */
+			/* **************************** */
+			/* *						  * */
+			/* *	     FT_MATHS	   	  * */
+			/* *						  * */
+			/* **************************** */
+			/* **************************** */
+
+int		ft_pow(int n, int pow);
+int		ft_lerp(int a, int b, float t);
+float	ft_lerpf(float a, float b, float t);
+double	ft_lerpd(double a, double b, float t);
+int		ft_abs(int a);
+float	ft_absf(float a);
+double	ft_absd(double a);
 
 			/* **************************** */
 			/* **************************** */
@@ -253,7 +269,6 @@ char	*strlinsert(char *str, const char *insert_, int at);
 			/* **************************** */
 			/* **************************** */
 
-int		ft_abs(int a);
 void	ft_swap_addr(void **a, void **b);
 int		ft_intlen(int n);
 char	*ft_convert_base(char *nbr, char *base_from, char *base_to);
@@ -268,6 +283,8 @@ size_t	ft_count_words(const char *s, char sep);
 			/* **************************** */
 
 char	*ft_itoa(int n);
+double	ft_atod(char *str);
+float	ft_atof(char *str);
 int		ft_atoi(const char *str);
 int		ft_isalnum(int c);
 int		ft_isalpha(int c);

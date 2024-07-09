@@ -1,31 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strndup.c                                       :+:      :+:    :+:   */
+/*   ft_pow.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bama <bama@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: ymanchon <ymanchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/07 16:14:45 by ymanchon          #+#    #+#             */
-/*   Updated: 2024/07/07 23:46:25 by bama             ###   ########.fr       */
+/*   Created: 2024/07/08 18:21:21 by ymanchon          #+#    #+#             */
+/*   Updated: 2024/07/08 18:39:52 by ymanchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strndup(const char *str, unsigned int n)
+int	ft_pow(int n, int pow)
 {
-	char			*ret;
-	unsigned long	i;
+	const int	tmp = n;
 
-	ret = (char *)malloc(sizeof(char) * (n + 1));
-	if (!ret)
-		return (NULL);
-	i = 0;
-	while (str[i] && i < n)
-	{
-		ret[i] = str[i];
-		i++;
-	}
-	ret[i] = '\0';
-	return (ret);
+	if (pow == 0)
+		return (1);
+	while (--pow)
+		n *= tmp;
+	return (n);
 }

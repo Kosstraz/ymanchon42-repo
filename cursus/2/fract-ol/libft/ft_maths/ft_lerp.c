@@ -1,40 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   ft_lerp.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ymanchon <ymanchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/07 19:25:25 by ymanchon          #+#    #+#             */
-/*   Updated: 2024/07/09 15:33:08 by ymanchon         ###   ########.fr       */
+/*   Created: 2024/07/08 19:34:56 by ymanchon          #+#    #+#             */
+/*   Updated: 2024/07/08 19:43:33 by ymanchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fractol.h"
-
-inline t_vec2i	set_vec2i(int x, int y)
+int	ft_lerp(int a, int b, float t)
 {
-	t_vec2i	vec2i;
-
-	vec2i.x = x;
-	vec2i.y = y;
-	return (vec2i);
+	return (a + (b - a) * t);
 }
 
-inline t_vec2d	set_vec2d(double x, double y)
+float	ft_lerpf(float a, float b, float t)
 {
-	t_vec2d	vec2d;
-
-	vec2d.x = x;
-	vec2d.y = y;
-	return (vec2d);
+	return (a + (b - a) * t);
 }
 
-void	put_pixel_on_image(t_env *env, int x, int y, int color)
+double	ft_lerpd(double a, double b, float t)
 {
-	char	*pixel;
-
-	pixel = env->image.addr
-		+ (y * env->image.size_line + x * (env->image.bpp / 8));
-	*(int *)pixel = color;
+	return (a + (b - a) * t);
 }
