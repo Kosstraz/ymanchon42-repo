@@ -1,38 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   args_handle.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ymanchon <ymanchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/18 11:05:31 by bama              #+#    #+#             */
-/*   Updated: 2024/07/10 17:03:50 by ymanchon         ###   ########.fr       */
+/*   Created: 2024/07/10 14:38:09 by ymanchon          #+#    #+#             */
+/*   Updated: 2024/07/10 14:46:27 by ymanchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	lock_mutex(t_philo *philo, int i)
+char	valid_args(int ac, char **av)
 {
-	pthread_mutex_lock(&philo->d.mutexes[i]);
-	philo->d.locked = 1;
+	int	i;
+
+	i = 0;
+	while (i < ac)
+		if (ft_atoi(av[i++]) < 0)
+			return (0);
+	return (1);
 }
 
-void	unlock_mutex(t_philo *philo, int i)
+void	take_args(t_args *args, char **av)
 {
-	pthread_mutex_unlock(&philo->d.mutexes[i]);
-	philo->d.locked = 0;
-}
-
-void	freexit(void *ptr)
-{
-	free(ptr);
-	exit(0);
-}
-
-void	freexit2(void *ptr1, void *ptr2)
-{
-	free(ptr1);
-	free(ptr2);
-	exit(0);
+	args->n = ft_atoi(av[0]);
+	args->dtime = ft_atoi(av[1]);
+	args->etime = ft_atoi(av[2]);
+	args->stime = ft_atoi(av[3]);
 }

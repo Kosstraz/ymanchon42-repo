@@ -6,7 +6,7 @@
 /*   By: ymanchon <ymanchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 17:10:22 by ymanchon          #+#    #+#             */
-/*   Updated: 2024/07/09 20:12:34 by ymanchon         ###   ########.fr       */
+/*   Updated: 2024/07/10 17:02:33 by ymanchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,51 +27,35 @@
 # include <pthread.h>
 # include <sys/time.h>
 
-/*
-	PTHREAD_CREATE -->
-Creer un thread avec ses attributs.
-
-	PTHREAD_DETACH -->
-Marque le thread mis en parametre comme detache, il ne pourra plus etre join.
-Mais en cas d'arret du thread, ses ressources seront restituees a la machine.
-
-	PTHREAD_EXIT -->
-Le thread appelant est exit.
-
-	PTHREAD_JOIN -->
-Attends un thread.
-
-	PTHREAD_MUTEX_INIT -->
-Initialize un mutex avec ses attributs. Juste apres sont initialisation le mutex sera unlock.
-
-	PTHREAD_MUTEX_LOCK -->
-Verouille un mutex avec attribut.
-
-	PTHREAD_MUTEX_UNLOCK -->
-Deverouille un mutex.
-
-	PTHREAD_DESTROY -->
-Detruit un mutex, verifiez qu'il soit bien unlock avant.
-*/
-
-typedef struct s_philo_args
+typedef struct s_args
 {
 	int	n;
 	int	dtime;
 	int	etime;
 	int	stime;
-}	t_philo_args;
+}	t_args;
+
+typedef struct s_datas
+{
+	char			locked;
+	pthread_mutex_t	*mutexes;
+	pthread_t		*threads;
+}	t_datas;
 
 typedef struct s_philo
 {
-	pthread_t		*threads;
-	pthread_mutex_t	*mutexes;
-	t_philo_args	args;
+	t_datas			d;
+	t_args			args;
 	long			start_time;
+	int				index;
 }	t_philo;
 
-int		set_philo_v(t_philo_args *philo_v, char **av);
 int		ft_atoi(const char *str);
-void	printf_exit(char *msg);
+char	valid_args(int ac, char **av);
+void	take_args(t_args *args, char **av);
+void	freexit(void *ptr);
+void	freexit2(void *ptr1, void *ptr2);
+void	lock_mutex(t_philo *philo, int i);
+void	unlock_mutex(t_philo *philo, int i);
 
 #endif

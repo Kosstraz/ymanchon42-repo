@@ -6,7 +6,7 @@
 #    By: ymanchon <ymanchon@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/13 16:21:19 by ymanchon          #+#    #+#              #
-#    Updated: 2024/07/09 18:59:01 by ymanchon         ###   ########.fr        #
+#    Updated: 2024/07/10 15:18:10 by ymanchon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ NAME = philo
 CC =	cc
 
 SRCS =	./srcs/ft_atoi.c \
-		./srcs/parsing.c \
+		./srcs/args_handle.c \
 		./srcs/utils.c \
 		./srcs/philo.c \
 
@@ -73,7 +73,7 @@ fclean: clean
 	rm $(NAME) -f
 	@echo "Tout à été supprimé... 🗑️\n$(CLASSIC)"
 
-re: fclean mlx all
+re: fclean all
 
 .PHONY: all clean fclean re
 -include $(DEPS)
