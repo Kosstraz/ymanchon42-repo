@@ -6,22 +6,25 @@
 /*   By: ymanchon <ymanchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 11:05:31 by bama              #+#    #+#             */
-/*   Updated: 2024/07/10 22:58:51 by ymanchon         ###   ########.fr       */
+/*   Updated: 2024/07/11 16:34:35 by ymanchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	lock_mutex(t_philo *philo)
+int	get_mseconds(struct timeval tv)
 {
-	pthread_mutex_lock(&philo->d.mutexes);
-	philo->d.locked = 1;
+	return ((tv.tv_sec) * 1000 + (tv.tv_usec) / 1000);
 }
 
-void	unlock_mutex(t_philo *philo)
+void	init_mutex(t_fork mutexes[MAX_PHILO], int count)
 {
-	philo->d.locked = 0;
-	pthread_mutex_unlock(&philo->d.mutexes);
+	int	i;
+
+	i = 0;
+	while (i < count)
+		pthread_mutex_init(&mutexes[i++], NULL);
+	mutexes[i] = mutexes[0];
 }
 
 void	freexit(void *ptr)

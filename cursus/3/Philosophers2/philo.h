@@ -6,7 +6,7 @@
 /*   By: ymanchon <ymanchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 17:10:22 by ymanchon          #+#    #+#             */
-/*   Updated: 2024/07/10 21:15:10 by ymanchon         ###   ########.fr       */
+/*   Updated: 2024/07/11 16:43:06 by ymanchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@
 # include <pthread.h>
 # include <sys/time.h>
 
+typedef pthread_mutex_t	t_fork;
+
 typedef struct s_args
 {
 	int	n;
@@ -37,20 +39,24 @@ typedef struct s_args
 	int	stime;
 }	t_args;
 
-typedef struct s_datas
+typedef struct s_time
 {
-	char			locked;
-	pthread_mutex_t	mutexes;
-	pthread_t		threads[MAX_PHILO];
-}	t_datas;
+	struct timeval	s;
+	struct timeval	e;
+}	t_time;
+
+typedef struct s_table
+{
+	t_fork		*mutexes;
+	pthread_t	threads;
+}	t_table;
 
 typedef struct s_philo
 {
-	t_datas			d;
+	struct timeval	start_time;
+	t_table			d;
 	t_args			args;
-	suseconds_t		start_time;
 	int				index;
-	int				launched;
 }	t_philo;
 
 int		ft_atoi(const char *str);
@@ -58,7 +64,15 @@ char	valid_args(int ac, char **av);
 void	take_args(t_args *args, char **av);
 void	freexit(void *ptr);
 void	freexit2(void *ptr1, void *ptr2);
-void	lock_mutex(t_philo *philo);
-void	unlock_mutex(t_philo *philo);
+	// initialisation des mutexes contextuellement a la
+//structure du programme
+void	init_mutex(t_fork mutexes[MAX_PHILO], int count);
+	// converton struct timeval en millisecondes
+int		get_mseconds(struct timeval tv);
+	// usleep personnalise
+void	pusleep(t_philo *philo, int startt);
+	// Tue le philosophe
+void	kill_philosopher(t_philo *philo, struct timeval s,
+			struct timeval begint);
 
 #endif
