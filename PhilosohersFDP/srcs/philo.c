@@ -6,7 +6,7 @@
 /*   By: ymanchon <ymanchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 14:34:08 by ymanchon          #+#    #+#             */
-/*   Updated: 2024/07/11 22:11:02 by ymanchon         ###   ########.fr       */
+/*   Updated: 2024/07/12 15:19:54 by ymanchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,16 @@ void	thinking(t_philo *philo, struct timeval v1, struct timeval begint, int i)
 
 	printf("%d Philosopher %d is thinking\n",
 		get_msinter(begint, philo->start_time), i + 1);
-	pthread_mutex_lock(&philo->d.mutexes[i]);
-	pthread_mutex_lock(&philo->d.mutexes[i + 1]);
+	if (i % 2 == 0)
+	{
+		pthread_mutex_lock(&philo->d.mutexes[i]);
+		pthread_mutex_lock(&philo->d.mutexes[i + 1]);
+	}
+	else
+	{
+		pthread_mutex_lock(&philo->d.mutexes[i + 1]);
+		pthread_mutex_lock(&philo->d.mutexes[i]);
+	}
 	gettimeofday(&think, NULL);
 	if (get_mseconds(think) - get_mseconds(v1) > philo->args.dtime
 		|| philo->args.n == 1)
@@ -112,8 +120,10 @@ void	philosophers(t_philo philo[MAX_PHILO], t_args args)
 	}
 	i = 0;
 	while (i < args.n)
+	{
 		pthread_mutex_destroy(&philo[i].d.mutexes[i]);
 		i++;
+	}
 }
 
 int	main(int ac, char **av)

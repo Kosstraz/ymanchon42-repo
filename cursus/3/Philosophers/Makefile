@@ -6,7 +6,7 @@
 #    By: ymanchon <ymanchon@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/13 16:21:19 by ymanchon          #+#    #+#              #
-#    Updated: 2024/07/10 15:18:10 by ymanchon         ###   ########.fr        #
+#    Updated: 2024/07/11 17:22:58 by ymanchon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,6 +30,7 @@ CC =	cc
 SRCS =	./srcs/ft_atoi.c \
 		./srcs/args_handle.c \
 		./srcs/utils.c \
+		./srcs/philo_fct.c \
 		./srcs/philo.c \
 
 OBJS_DIR =		objs
@@ -40,7 +41,7 @@ DEPS =	$(OBJS:%.obj=%.d)
 
 INCLUDES =	-I ./includes/ -I $(PRINTF_P)/ -I $(LIBFT_P)/ -I ./minilibx/ -I .
 
-CFLAGS =	-Wall -Wextra -MMD -lpthread #-Werror
+CFLAGS =	-Wall -Wextra -MMD -lpthread -fsanitize=thread -g #-Werror
 
 # ############## #
 #*    REGLES    *#

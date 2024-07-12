@@ -6,7 +6,7 @@
 /*   By: ymanchon <ymanchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 14:38:09 by ymanchon          #+#    #+#             */
-/*   Updated: 2024/07/10 14:46:27 by ymanchon         ###   ########.fr       */
+/*   Updated: 2024/07/10 21:52:02 by ymanchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char	valid_args(int ac, char **av)
 
 	i = 0;
 	while (i < ac)
-		if (ft_atoi(av[i++]) < 0)
+		if (ft_atoi(av[i++]) <= 0)
 			return (0);
 	return (1);
 }

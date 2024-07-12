@@ -6,38 +6,34 @@
 /*   By: ymanchon <ymanchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 16:36:48 by ymanchon          #+#    #+#             */
-/*   Updated: 2024/07/11 16:54:43 by ymanchon         ###   ########.fr       */
+/*   Updated: 2024/07/11 22:07:29 by ymanchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	kill_philosopher(t_philo *philo, struct timeval s,
-	struct timeval begint)
+void	kill_philosopher(t_philo *philo, struct timeval tv)
 {
 	int	i;
 
 	i = 0;
-	printf("%d Philosopher %d is dead\n", get_mseconds(s)
-		- get_mseconds(begint), philo->index + 1);
-	while (i < philo->args.n)
-		pthread_detach(philo[i++ - philo->index].d.threads);
+	printf("%d Philosopher %d is dead\n", get_msinter(tv, philo->start_time),
+		philo->index + 1);
+	//*(philo->dead) = 1;
 	exit(0);
 }
 
-void	pusleep(t_philo *philo, int startt)
+void	pusleep(t_philo *philo, struct timeval s, struct timeval begint, int cancelt)
 {
-	struct timeval	s;
+	const int		stime = get_mseconds(s) - cancelt;
 	struct timeval	e;
 
-	gettimeofday(&s, NULL);
 	e = s;
-	while (get_mseconds(e) - get_mseconds(s) <= philo->args.dtime)
+	while (get_mseconds(e) - stime <= philo->args.dtime)
 	{
 		gettimeofday(&e, NULL);
 		if (get_mseconds(e) - get_mseconds(s) > philo->args.stime)
 			return ;
 	}
-	//pthread_mutex_lock(&philo->d.mutexes[philo->index]);
-	kill_philosopher(philo, e, philo->start_time);
+	kill_philosopher(philo, begint);
 }

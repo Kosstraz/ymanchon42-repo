@@ -6,87 +6,122 @@
 /*   By: ymanchon <ymanchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 14:34:08 by ymanchon          #+#    #+#             */
-/*   Updated: 2024/07/10 17:13:51 by ymanchon         ###   ########.fr       */
+/*   Updated: 2024/07/12 15:19:54 by ymanchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	init_philo_struct(t_philo **philo, t_datas *data, int count)
+void	thinking(t_philo *philo, struct timeval v1, struct timeval begint, int i)
 {
-	pthread_mutex_t	*mutexes;
-	pthread_t		*threads;
-	int				i;
+	struct timeval	think;
 
-	i = 0;
-	mutexes = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) * count);
-	if (!mutexes)
-		exit(0);
-	threads = (pthread_t *)malloc(sizeof(pthread_t) * count);
-	if (!threads)
-		freexit(mutexes);
-	*philo = (t_philo *)malloc(sizeof(t_philo) * count);
-	if (!*philo)
-		freexit2(mutexes, threads);
-	data->mutexes = mutexes;
-	data->threads = threads;
+	printf("%d Philosopher %d is thinking\n",
+		get_msinter(begint, philo->start_time), i + 1);
+	if (i % 2 == 0)
+	{
+		pthread_mutex_lock(&philo->d.mutexes[i]);
+		pthread_mutex_lock(&philo->d.mutexes[i + 1]);
+	}
+	else
+	{
+		pthread_mutex_lock(&philo->d.mutexes[i + 1]);
+		pthread_mutex_lock(&philo->d.mutexes[i]);
+	}
+	gettimeofday(&think, NULL);
+	if (get_mseconds(think) - get_mseconds(v1) > philo->args.dtime
+		|| philo->args.n == 1)
+		kill_philosopher(philo, begint);
 }
 
-void	thinking(t_philo *philo, int i)
+void	*routine(t_philo philo[MAX_PHILO])
 {
-	while ((i == philo->args.n - 1 && philo->d.locked && philo[0].d.locked)
-		|| (i != philo->args.n - 1 && philo->d.locked && philo[i + 1].d.locked))
-		;
-}
-
-void	*routine(void *philo)
-{
-	/*struct timeval	tv;
+	struct timeval	s;
+	t_time			cancel;
+	struct timeval	begint;
+	int				time;
 	int				i;
-	long			time;
 
 	i = philo->index;
+	gettimeofday(&s, NULL);
 	while (1)
 	{
-		gettimeofday(&tv, NULL);
-		time = tv.tv_usec - philo->start_time;
-		thinking(&philo[i], i);
-		lock_mutex(philo, i);
-		usleep(philo->args.etime);
-		unlock_mutex(philo, i);
-		usleep(philo->args.stime);
-		exit(0);
-	}*/
+		gettimeofday(&begint, NULL);
+		time = get_msinter(begint, philo->start_time);
+		thinking(philo, s, begint, i);
+		//if (*(philo->dead))
+		//	exit(0);
+		printf("%d Philosopher %d is eating\n", time, i + 1);
+		usleep(philo->args.etime * 1000);
+		gettimeofday(&s, NULL);
+		//if (*(philo->dead))
+		//	exit(0);
+		gettimeofday(&cancel.s, NULL);
+		pthread_mutex_unlock(&philo->d.mutexes[i]);
+		pthread_mutex_unlock(&philo->d.mutexes[i + 1]);
+		printf("%d Philosopher %d is sleeping\n", time, i + 1);
+		gettimeofday(&cancel.e, NULL);
+		pusleep(philo, s, begint, 0);//get_msinter(cancel.e, cancel.s));
+	}
 	return (NULL);
 }
 
-void	philosophers(t_philo *philo, t_datas data, int count)
+void	init_struct_philo(t_philo philo[MAX_PHILO],
+		t_fork mutexes[MAX_PHILO + 1], t_args args)
 {
-	struct timeval	tv;
+	struct timeval	start_time;
+	char			*dead;
 	int				i;
 
 	i = 0;
-	gettimeofday(&tv, NULL);
-	while (i < count)
+	init_mutex(mutexes, args.n);
+	dead = (char *)malloc(sizeof(char));
+	if (!dead)
+		exit(0);
+	*dead = 0;
+	gettimeofday(&start_time, NULL);
+	while (i < args.n)
 	{
+		philo[i].dead = dead;
 		philo[i].index = i;
-		philo[i].d.locked = 0;
-		philo[i].start_time = tv.tv_usec;
-		philo[i].d.mutexes = data.mutexes;
-		philo[i].d.threads = data.threads;
+		philo[i].args = args;
+		philo[i].start_time = start_time;
+		philo[i].d.mutexes = mutexes;
+		i++;
+	}
+}
+
+void	philosophers(t_philo philo[MAX_PHILO], t_args args)
+{
+	t_fork			mutexes[MAX_PHILO + 1];
+	struct timeval	start_time;
+	int				i = 0;
+
+	//init_struct_philo(philo, mutexes, args);
+	init_mutex(mutexes, args.n);
+	gettimeofday(&start_time, NULL);
+	while (i < args.n)
+	{
+		//philo[i].dead = dead;
+		philo[i].index = i;
+		philo[i].args = args;
+		philo[i].start_time = start_time;
+		philo[i].d.mutexes = mutexes;
+		i++;
+	}
+	i = -1;
+	while (++i < args.n)
+		pthread_create(&philo[i].d.threads, NULL, routine, &philo[i]);
+	i = 0;
+	while (i < args.n)
+	{
+		pthread_join(philo[i].d.threads, NULL);
 		i++;
 	}
 	i = 0;
-	while (i < count)
+	while (i < args.n)
 	{
-		pthread_mutex_init(&philo[i].d.mutexes[i], NULL);
-		pthread_create(&philo[i].d.threads[i], NULL, routine, (void *)philo);
-		i++;
-	}/**/
-	i = 0;
-	while (i < count)
-	{
-		pthread_join(philo[i].d.threads, NULL);
+		pthread_mutex_destroy(&philo[i].d.mutexes[i]);
 		i++;
 	}
 }
@@ -94,8 +129,7 @@ void	philosophers(t_philo *philo, t_datas data, int count)
 int	main(int ac, char **av)
 {
 	t_args	args;
-	t_datas	data;
-	t_philo	*philo;
+	t_philo	philo[MAX_PHILO];
 
 	if (ac < 5)
 		printf(INVALID_ARGS);
@@ -104,8 +138,7 @@ int	main(int ac, char **av)
 		if (!valid_args(ac - 1, &av[1]))
 			return (printf(NEGATIVE_NUMBER), 0);
 		take_args(&args, &av[1]);
-		init_philo_struct(&philo, &data, ac - 1);
-		philosophers(philo, data, ac);
+		philosophers(philo, args);
 	}
 	return (0);
 }
