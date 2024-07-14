@@ -6,34 +6,25 @@
 #    By: ymanchon <ymanchon@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/13 16:21:19 by ymanchon          #+#    #+#              #
-#    Updated: 2024/07/14 18:39:28 by ymanchon         ###   ########.fr        #
+#    Updated: 2024/07/13 17:04:54 by ymanchon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
-
-# ################ #
-#*    COULEURS    *#
-# ################ #
-
-CLASSIC	=	\e[0m
-RED_B	=	\e[1;31m
-GREEN_B	=	\e[1;32m
-YELLO	=	\e[33m
 
 # ############### #
 #*   VARIABLES   *#
 # ############### #
 
-NAME = philo
+NAME = aristote
 
 CC =	cc
 
-SRCS =	./srcs/ft_atoi.c \
-		./srcs/args_handle.c \
-		./srcs/utils.c \
-		./srcs/utils2.c \
-		./srcs/philo_fct.c \
-		./srcs/philo_fct2.c \
-		./srcs/philo.c \
+SRCS =	./srcs/ft_split.c \
+		./srcs/ft_strjoin.c \
+		./srcs/freemem.c \
+		./srcs/get_next_line_utils.c \
+		./srcs/get_next_line.c \
+		./srcs/parsing.c \
+		./srcs/aristote.c \
 
 OBJS_DIR =		objs
 
@@ -41,35 +32,26 @@ OBJS =	$(SRCS:%.c=$(OBJS_DIR)/%.obj)
 
 DEPS =	$(OBJS:%.obj=%.d)
 
-INCLUDES =	-I ./includes/ -I $(PRINTF_P)/ -I $(LIBFT_P)/ -I ./minilibx/ -I .
+INCLUDES =	-I ./includes/
 
 CFLAGS =	-Wall -Wextra -MMD #-fsanitize=thread -g -Werror
 
-LIB =	-lpthread
+LIB = 	-lpthread
 
 # ############## #
 #*    REGLES    *#
 # ############## #
 
-all: _colorY_ $(NAME) _colorG_
+all: $(NAME)
 
 $(NAME): $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) $(LIB) -o $@
+	$(CC) $(CFLAGS) $(OBJS) $(LIB) $(MLX) -o $@
 
 $(OBJS_DIR)/%.obj: %.c
 	@mkdir -p $(@D)
 	$(CC) $(INCLUDES) $(CFLAGS) -c $< -o $@
 
-_colorY_:
-	@echo "$(YELLO)Compilation en cours... ⚙️\n"
-
-_colorR_:
-	@echo "$(RED_B)"
-
-_colorG_:
-	@echo "$(GREEN_B)Compilation terminée 🗿\n$(CLASSIC)"
-
-clean: _colorR_
+clean:
 	rm $(LIBFT_P)/$(OBJS_DIR) -rf
 	rm $(OBJS_DIR) -rf
 

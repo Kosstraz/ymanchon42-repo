@@ -1,39 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   args_handle.c                                      :+:      :+:    :+:   */
+/*   philo_fct2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ymanchon <ymanchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/10 14:38:09 by ymanchon          #+#    #+#             */
-/*   Updated: 2024/07/14 16:45:41 by ymanchon         ###   ########.fr       */
+/*   Created: 2024/07/11 16:36:48 by ymanchon          #+#    #+#             */
+/*   Updated: 2024/07/14 18:34:26 by ymanchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-char	valid_args(int ac, char **av)
+inline void	drop_forks(t_philo *philo)
 {
-	int	i;
-
-	i = 0;
-	while (i < 4)
-		if (ft_atoi(av[i++]) <= 0)
-			return (0);
-	if (ac >= 5)
-		if (ft_atoi(av[i++]) < 0)
-			return (0);
-	return (1);
-}
-
-void	take_args(t_args *args, char **av, int ac)
-{
-	args->n = ft_atoi(av[0]);
-	args->dtime = ft_atoi(av[1]);
-	args->etime = ft_atoi(av[2]);
-	args->stime = ft_atoi(av[3]);
-	if (ac >= 5)
-		args->time_musteat = ft_atoi(av[4]);
+	if (philo->index % 2 == 0)
+	{
+		pthread_mutex_unlock(&philo->d.mutexes[philo->index]);
+		pthread_mutex_unlock(&philo->d.mutexes[philo->index + 1]);
+	}
 	else
-		args->time_musteat = -1;
+	{
+		pthread_mutex_unlock(&philo->d.mutexes[philo->index + 1]);
+		pthread_mutex_unlock(&philo->d.mutexes[philo->index]);
+	}
 }
