@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymanchon <ymanchon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bama <bama@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 11:05:31 by bama              #+#    #+#             */
-/*   Updated: 2024/07/15 15:15:41 by ymanchon         ###   ########.fr       */
+/*   Updated: 2024/07/15 21:14:52 by bama             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ void	alloc_all_var(char **dead, int **total_eat, pthread_mutex_t **mutex_te,
 	pthread_mutex_init(*mutex_te, NULL);
 	pthread_mutex_init(*mutex_d, NULL);
 }
+
+//alloc_all_var2(pthread_mutex_t **mutex_pf)
 
 void	*routine_cast(void *philo)
 {

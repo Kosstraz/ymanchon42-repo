@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymanchon <ymanchon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bama <bama@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 14:34:08 by ymanchon          #+#    #+#             */
-/*   Updated: 2024/07/15 19:05:06 by ymanchon         ###   ########.fr       */
+/*   Updated: 2024/07/15 22:08:22 by bama             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,10 @@ void	thinking(t_philo *philo, struct timeval last_eat)
 	check_death(philo);
 	take_her_forks(philo);
 	gettimeofday(&think, NULL);
-	printf("\e[1m \e[31m TEMPS a penser : %d\n \e[0m", ms(think) - ms(last_eat));
 	if (ms(think) - ms(last_eat) > philo->args.dtime
 		|| philo->args.n == 1)
 	{
 		drop_forks(philo);
-		printf("\e[1m \e[32m MORT EN PENSANT\n \e[0m");
 		kill_philosopher(philo);
 	}
 	check_death_with_fork(philo);
@@ -36,6 +34,8 @@ inline void	*routine(t_philo philo[MAX_PHILO])
 	const int		eat_needed = philo->args.n * philo->args.time_musteat;
 	struct timeval	last_eat;
 
+	if (philo->index % 2 == 1)
+		usleep(philo->args.etime * 1000);
 	gettimeofday(&last_eat, NULL);
 	while (1)
 	{
@@ -56,7 +56,6 @@ void	init_struct_philo(t_philo philo[MAX_PHILO],
 {
 	pthread_mutex_t	*mutex_te;
 	pthread_mutex_t	*mutex_d;
-	pthread_mutex_t	*mutex_pf;
 	char			*dead;
 	int				*total_eat;
 	int				i;
@@ -64,18 +63,13 @@ void	init_struct_philo(t_philo philo[MAX_PHILO],
 	i = -1;
 	init_mutex(mutexes, args.n);
 	alloc_all_var(&dead, &total_eat, &mutex_te, &mutex_d);
-	mutex_pf = (t_fork *)malloc(sizeof(t_fork));
-	if (!mutex_pf)
-		return ;
 	pthread_mutex_init(mutex_te, NULL);
 	pthread_mutex_init(mutex_d, NULL);
-	pthread_mutex_init(mutex_pf, NULL);
 	gettimeofday(&philo[0].start_time, NULL);
 	while (++i < args.n)
 	{
 		philo[i].mutex_te = mutex_te;
 		philo[i].mutex_d = mutex_d;
-		philo[i].mutex_pf = mutex_pf;
 		philo[i].total_eat = total_eat;
 		philo[i].dead = dead;
 		philo[i].index = i;

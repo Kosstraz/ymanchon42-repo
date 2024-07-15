@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo.h                                            :+:      :+:    :+:   */
+/*   philo_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bama <bama@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 17:10:22 by ymanchon          #+#    #+#             */
-/*   Updated: 2024/07/15 22:12:58 by bama             ###   ########.fr       */
+/*   Updated: 2024/07/15 22:16:02 by bama             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHILO_H
-# define PHILO_H
+#ifndef PHILO_BONUS_H
+# define PHILO_BONUS_H
 
 # define INVALID_ARGS "\e[31mNombre incorrecte d'argument :\
  (tout argument supplementaire sera ignore)\e[0m\n\
@@ -38,8 +38,6 @@
 # include <sys/wait.h>
 # include <sys/time.h>
 
-typedef pthread_mutex_t	t_fork;
-
 typedef struct s_args
 {
 	int	n;
@@ -57,8 +55,7 @@ typedef struct s_time
 
 typedef struct s_table
 {
-	t_fork		*mutexes;
-	pthread_t	threads;
+	sem_t	*sems;
 }	t_table;
 
 typedef struct s_philo
@@ -67,8 +64,8 @@ typedef struct s_philo
 	t_table			d;
 	t_args			args;
 	int				index;
-	pthread_mutex_t	*mutex_te;
-	pthread_mutex_t	*mutex_d;
+	sem_t			*sem_te;
+	sem_t			*sem_d;
 	int				*total_eat;
 	char			*dead;
 }	t_philo;
@@ -77,11 +74,10 @@ void	take_her_forks(t_philo *philo);
 void	printfp(t_philo *philo, char *msg);
 void	*routine(t_philo philo[MAX_PHILO]);
 void	launch_routine(t_philo philo[MAX_PHILO], int **pid);
-void	*routine_cast(void *philo);
 void	check_must_eat(t_philo *philo, const int eat_needed);
 void	check_death_with_fork(t_philo *philo);
-void	alloc_all_var(char **dead, int **total_eat, pthread_mutex_t **mutex_te,
-			pthread_mutex_t **mutex_d);
+void	alloc_all_var(char **dead, int **total_eat, sem_t **mutex_te,
+			sem_t **mutex_d);
 void	check_death(t_philo *philo);
 void	take_one_fork(t_philo *philo, int mut_i);
 int		ft_atoi(const char *str);
@@ -90,9 +86,6 @@ void	take_args(t_args *args, char **av, int ac);
 void	freexit(void *ptr);
 void	freexit2(void *ptr1, void *ptr2);
 void	drop_forks(t_philo *philo);
-	// initialisation des mutexes contextuellement a la
-//structure du programme
-void	init_mutex(t_fork mutexes[MAX_PHILO + 1], int count);
 void	init_sem(sem_t *sems[MAX_PHILO + 1], int count);
 	// converton struct timeval en millisecondes
 int		ms(struct timeval tv);

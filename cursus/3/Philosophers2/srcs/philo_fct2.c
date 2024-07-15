@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_fct2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymanchon <ymanchon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bama <bama@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 16:36:48 by ymanchon          #+#    #+#             */
-/*   Updated: 2024/07/15 18:55:31 by ymanchon         ###   ########.fr       */
+/*   Updated: 2024/07/15 21:15:23 by bama             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,7 @@ inline void	printfp(t_philo *philo, char *msg)
 {
 	struct timeval	tv;
 
-	//pthread_mutex_lock(philo->mutex_pf);
 	gettimeofday(&tv, NULL);
 	printf("%d %d %s\n", get_msinter(tv, philo->start_time),
 		philo->index + 1, msg);
-	//pthread_mutex_unlock(philo->mutex_pf);
 }

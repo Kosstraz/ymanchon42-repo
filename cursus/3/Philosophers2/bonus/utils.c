@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymanchon <ymanchon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bama <bama@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 11:05:31 by bama              #+#    #+#             */
-/*   Updated: 2024/07/15 15:16:09 by ymanchon         ###   ########.fr       */
+/*   Updated: 2024/07/15 22:15:18 by bama             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "philo_bonus.h"
 
 inline int	ms(struct timeval tv)
 {
@@ -22,14 +22,17 @@ inline int	get_msinter(struct timeval s, struct timeval e)
 	return (ms(s) - ms(e));
 }
 
-void	init_mutex(t_fork mutexes[MAX_PHILO + 1], int count)
+void	init_sem(sem_t *sems[MAX_PHILO + 1], int count)
 {
 	int	i;
 
 	i = 0;
 	while (i < count)
-		pthread_mutex_init(&mutexes[i++], NULL);
-	mutexes[i] = mutexes[0];
+	{
+		sems[i] = sem_open(&sems[i], 0);
+		i++;
+	}
+	sems[i] = sems[0];
 }
 
 void	freexit(void *ptr)

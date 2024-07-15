@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   args_handle.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymanchon <ymanchon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bama <bama@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 14:38:09 by ymanchon          #+#    #+#             */
-/*   Updated: 2024/07/14 16:45:41 by ymanchon         ###   ########.fr       */
+/*   Updated: 2024/07/15 22:15:18 by bama             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "philo_bonus.h"
 
 char	valid_args(int ac, char **av)
 {

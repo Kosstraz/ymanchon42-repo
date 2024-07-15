@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   philo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymanchon <ymanchon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bama <bama@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 14:34:08 by ymanchon          #+#    #+#             */
-/*   Updated: 2024/07/15 19:06:25 by ymanchon         ###   ########.fr       */
+/*   Updated: 2024/07/15 22:17:32 by bama             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "philo_bonus.h"
 
 void	thinking(t_philo *philo, struct timeval last_eat)
 {
@@ -20,12 +20,10 @@ void	thinking(t_philo *philo, struct timeval last_eat)
 	check_death(philo);
 	take_her_forks(philo);
 	gettimeofday(&think, NULL);
-	printf("\e[1m \e[31m TEMPS a penser : %d\n \e[0m", ms(think) - ms(last_eat));
 	if (ms(think) - ms(last_eat) > philo->args.dtime
 		|| philo->args.n == 1)
 	{
 		drop_forks(philo);
-		printf("\e[1m \e[32m MORT EN PENSANT\n \e[0m");
 		kill_philosopher(philo);
 	}
 	check_death_with_fork(philo);
@@ -36,6 +34,8 @@ inline void	*routine(t_philo philo[MAX_PHILO])
 	const int		eat_needed = philo->args.n * philo->args.time_musteat;
 	struct timeval	last_eat;
 
+	if (philo->index % 2 == 1)
+		usleep(philo->args.etime * 1000);
 	gettimeofday(&last_eat, NULL);
 	while (1)
 	{
@@ -51,59 +51,50 @@ inline void	*routine(t_philo philo[MAX_PHILO])
 	return (NULL);
 }
 
-void	launch_fork(t_philo philo[MAX_PHILO])
+void	init_struct_philo(t_philo philo[MAX_PHILO], sem_t sems[MAX_PHILO + 1],
+		const char sems_name[MAX_PHILO], int pids[MAX_PHILO])
 {
-	if (fork() == 0)
-		routine(philo);
-}
-
-void	init_struct_philo(t_philo philo[MAX_PHILO],
-		t_fork mutexes[MAX_PHILO + 1], t_args args)
-{
-	pthread_mutex_t	*mutex_te;
-	pthread_mutex_t	*mutex_d;
-	pthread_mutex_t	*mutex_pf;
-	char			*dead;
-	int				*total_eat;
-	int				i;
+	sem_t	*sem_te;
+	sem_t	*sem_d;
+	char	*dead;
+	int		*total_eat;
+	int		i;
 
 	i = -1;
-	init_mutex(mutexes, args.n);
-	alloc_all_var(&dead, &total_eat, &mutex_te, &mutex_d);
-	mutex_pf = (t_fork *)malloc(sizeof(t_fork));
-	if (!mutex_pf)
-		return ;
-	pthread_mutex_init(mutex_te, NULL);
-	pthread_mutex_init(mutex_d, NULL);
-	pthread_mutex_init(mutex_pf, NULL);
+	init_sem(&sems, philo[0].args.n);
+	alloc_all_var(&dead, &total_eat, &sem_te, &sem_d);
+	sem_open(sem_te, NULL);
+	sem_open(sem_d, NULL);
 	gettimeofday(&philo[0].start_time, NULL);
-	while (++i < args.n)
+	while (++i < philo[0].args.n)
 	{
-		philo[i].mutex_te = mutex_te;
-		philo[i].mutex_d = mutex_d;
-		philo[i].mutex_pf = mutex_pf;
+		philo[i].sem_te = sem_te;
+		philo[i].sem_d = sem_d;
 		philo[i].total_eat = total_eat;
 		philo[i].dead = dead;
 		philo[i].index = i;
-		philo[i].args = args;
+		philo[i].args = philo[0].args;
 		philo[i].start_time = philo[0].start_time;
-		philo[i].d.mutexes = mutexes;
-		launch_fork(philo);
+		philo[i].d.sems = sems;
+		launch_routine(philo, &pids[i]);
 	}
 }
 
 void	philosophers(t_philo philo[MAX_PHILO], t_args args)
 {
-	t_fork			mutexes[MAX_PHILO + 1];
-	int				i;
+	sem_t		mutexes[MAX_PHILO + 1];
+	const char	sems[MAX_PHILO];
+	int			pids[MAX_PHILO];
+	int			i;
 
-	init_struct_philo(philo, mutexes, args);
+	philo[0].args = args;
+	init_struct_philo(philo, mutexes, sems, pids);
 	i = 0;
 	while (i < args.n)
-		pthread_join(philo[i++].d.threads, NULL);
+		waitpid(pids[i++], NULL, 0);
 	i = -1;
 	while (++i < args.n)
-		pthread_mutex_destroy(&philo[i].d.mutexes[i]);
+		sem_unlink(&philo[i].d.mutexes[i]);
 }
 
 int	main(int ac, char **av)

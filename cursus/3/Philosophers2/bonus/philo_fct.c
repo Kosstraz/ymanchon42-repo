@@ -3,46 +3,46 @@
 /*                                                        :::      ::::::::   */
 /*   philo_fct.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymanchon <ymanchon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bama <bama@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 16:36:48 by ymanchon          #+#    #+#             */
-/*   Updated: 2024/07/15 18:23:35 by ymanchon         ###   ########.fr       */
+/*   Updated: 2024/07/15 22:15:18 by bama             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "philo_bonus.h"
 
 inline void	check_death(t_philo *philo)
 {
-	pthread_mutex_lock(philo->mutex_d);
+	sem_wait(philo->mutex_d);
 	if (*philo->dead == 1)
 	{
-		pthread_mutex_unlock(philo->mutex_d);
+		sem_post(philo->mutex_d);
 		pthread_detach(philo->d.threads);
 		exit(0);
 	}
-	pthread_mutex_unlock(philo->mutex_d);
+	sem_post(philo->mutex_d);
 }
 
 inline void	check_death_with_fork(t_philo *philo)
 {
-	pthread_mutex_lock(philo->mutex_d);
+	sem_wait(philo->mutex_d);
 	if (*philo->dead == 1)
 	{
-		pthread_mutex_unlock(philo->mutex_d);
+		sem_post(philo->mutex_d);
 		drop_forks(philo);
 		pthread_detach(philo->d.threads);
 		exit(0);
 	}
-	pthread_mutex_unlock(philo->mutex_d);
+	sem_post(philo->mutex_d);
 }
 
 void	kill_philosopher(t_philo *philo)
 {
 	printfp(philo, PHILO_DIED);
-	pthread_mutex_lock(philo->mutex_d);
+	sem_wait(philo->mutex_d);
 	*philo->dead = 1;
-	pthread_mutex_unlock(philo->mutex_d);
+	sem_post(philo->mutex_d);
 	exit(0);
 }
 
