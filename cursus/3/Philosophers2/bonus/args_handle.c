@@ -1,46 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   args_handle.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ymanchon <ymanchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/18 11:05:31 by bama              #+#    #+#             */
-/*   Updated: 2024/07/15 15:16:09 by ymanchon         ###   ########.fr       */
+/*   Created: 2024/07/10 14:38:09 by ymanchon          #+#    #+#             */
+/*   Updated: 2024/07/14 16:45:41 by ymanchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-inline int	ms(struct timeval tv)
-{
-	return ((tv.tv_sec) * 1000 + (tv.tv_usec) / 1000);
-}
-
-inline int	get_msinter(struct timeval s, struct timeval e)
-{
-	return (ms(s) - ms(e));
-}
-
-void	init_mutex(t_fork mutexes[MAX_PHILO + 1], int count)
+char	valid_args(int ac, char **av)
 {
 	int	i;
 
 	i = 0;
-	while (i < count)
-		pthread_mutex_init(&mutexes[i++], NULL);
-	mutexes[i] = mutexes[0];
+	while (i < 4)
+		if (ft_atoi(av[i++]) <= 0)
+			return (0);
+	if (ac >= 5)
+		if (ft_atoi(av[i++]) < 0)
+			return (0);
+	return (1);
 }
 
-void	freexit(void *ptr)
+void	take_args(t_args *args, char **av, int ac)
 {
-	free(ptr);
-	exit(0);
-}
-
-void	freexit2(void *ptr1, void *ptr2)
-{
-	free(ptr1);
-	free(ptr2);
-	exit(0);
+	args->n = ft_atoi(av[0]);
+	args->dtime = ft_atoi(av[1]);
+	args->etime = ft_atoi(av[2]);
+	args->stime = ft_atoi(av[3]);
+	if (ac >= 5)
+		args->time_musteat = ft_atoi(av[4]);
+	else
+		args->time_musteat = -1;
 }

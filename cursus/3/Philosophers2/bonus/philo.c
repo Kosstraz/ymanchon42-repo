@@ -6,7 +6,7 @@
 /*   By: ymanchon <ymanchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 14:34:08 by ymanchon          #+#    #+#             */
-/*   Updated: 2024/07/15 19:05:06 by ymanchon         ###   ########.fr       */
+/*   Updated: 2024/07/15 19:06:25 by ymanchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,12 @@ inline void	*routine(t_philo philo[MAX_PHILO])
 	return (NULL);
 }
 
+void	launch_fork(t_philo philo[MAX_PHILO])
+{
+	if (fork() == 0)
+		routine(philo);
+}
+
 void	init_struct_philo(t_philo philo[MAX_PHILO],
 		t_fork mutexes[MAX_PHILO + 1], t_args args)
 {
@@ -82,8 +88,7 @@ void	init_struct_philo(t_philo philo[MAX_PHILO],
 		philo[i].args = args;
 		philo[i].start_time = philo[0].start_time;
 		philo[i].d.mutexes = mutexes;
-		pthread_create(&philo[i].d.threads, NULL, &routine_cast,
-			(void *)&philo[i]);
+		launch_fork(philo);
 	}
 }
 

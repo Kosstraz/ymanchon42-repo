@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Aristote.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bama <bama@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: ymanchon <ymanchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 18:17:19 by ymanchon          #+#    #+#             */
-/*   Updated: 2024/07/14 21:55:12 by bama             ###   ########.fr       */
+/*   Updated: 2024/07/15 17:56:41 by ymanchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,10 @@
 # define TEST_DEFAULT2 "5 400 200 300" // died
 # define TEST_DEFAULT3 "5 400 300 200" // died
 # define TEST_DEFAULT4 "5 800 200 200 7" // live
-# define TEST_DEFAULT5 "5 800 20000 100" // died
-# define TEST_DEFAULT6 "5 800 100 20000" // died
+# define TEST_DEFAULT5 "5 1 100 100" //null for passed test
+# define TEST_DEFAULT6 "5 1 100 100" //null for passed test
+//# define TEST_DEFAULT5 "5 800 20000 100" // died
+//# define TEST_DEFAULT6 "5 800 100 20000" // died
 # define TEST_DEFAULT7 "4 410 200 200" //live
 # define TEST_DEFAULT8 "4 310 200 100" //died
 # define TEST_DEFAULT9 "3 310 200 100" //died

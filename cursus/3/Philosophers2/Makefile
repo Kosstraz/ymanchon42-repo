@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: bama <bama@student.42.fr>                  +#+  +:+       +#+         #
+#    By: ymanchon <ymanchon@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/13 16:21:19 by ymanchon          #+#    #+#              #
-#    Updated: 2024/07/14 21:42:09 by bama             ###   ########.fr        #
+#    Updated: 2024/07/15 18:53:38 by ymanchon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,6 +40,20 @@ OBJS_DIR =		objs
 OBJS =	$(SRCS:%.c=$(OBJS_DIR)/%.obj)
 
 DEPS =	$(OBJS:%.obj=%.d)
+
+NAME_BONUS = philo_bonus
+
+SRCS_BONUS =	./bonus/ft_atoi.c \
+				./bonus/args_handle.c \
+				./bonus/utils.c \
+				./bonus/utils2.c \
+				./bonus/philo_fct.c \
+				./bonus/philo_fct2.c \
+				./bonus/philo.c \
+
+OBJS_BONUS =	$(SRCS_BONUS:%.c=$(OBJS_DIR)/%.obj)
+
+DEPS_BONUS =	$(OBJS_BONUS:%.obj=%.d)
 
 INCLUDES =	-I ./includes/ -I $(PRINTF_P)/ -I $(LIBFT_P)/ -I ./minilibx/ -I .
 
@@ -75,9 +89,15 @@ clean: _colorR_
 
 fclean: clean
 	rm $(NAME) -f
+	rm $(NAME_BONUS) -f
 	@echo "Tout à été supprimé... 🗑️\n$(CLASSIC)"
 
 re: fclean all
 
-.PHONY: all clean fclean re
--include $(DEPS)
+bonus: $(NAME_BONUS)
+
+$(NAME_BONUS): $(OBJS_BONUS)
+	$(CC) $(CFLAGS) $(OBJS_BONUS) $(LIB) -o $@
+
+.PHONY: all clean fclean re bonus
+-include $(DEPS) $(DEPS_BONUS)

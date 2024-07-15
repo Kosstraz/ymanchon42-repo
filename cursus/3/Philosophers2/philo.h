@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bama <bama@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: ymanchon <ymanchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 17:10:22 by ymanchon          #+#    #+#             */
-/*   Updated: 2024/07/14 23:45:24 by bama             ###   ########.fr       */
+/*   Updated: 2024/07/15 17:50:24 by ymanchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,11 @@
 
 # define MAX_PHILO 200
 
-# define PHILO_TAKENFORK "%d %d has taken a fork\n"
-# define PHILO_EATING "%d %d is eating\n"
-# define PHILO_SLEEPING "%d %d is sleeping\n"
-# define PHILO_THINKING "%d %d is thinking\n"
-# define PHILO_DIED "%d %d died\n"
+# define PHILO_TAKENFORK "has taken a fork\n"
+# define PHILO_EATING "is eating\n"
+# define PHILO_SLEEPING "is sleeping\n"
+# define PHILO_THINKING "is thinking\n"
+# define PHILO_DIED "died\n"
 
 # include <unistd.h>
 # include <stdlib.h>
@@ -67,16 +67,21 @@ typedef struct s_philo
 	int				index;
 	pthread_mutex_t	*mutex_te;
 	pthread_mutex_t	*mutex_d;
+	pthread_mutex_t	*mutex_pf;
 	int				*total_eat;
 	char			*dead;
 }	t_philo;
 
+void	take_her_forks(t_philo *philo);
+void	printfp(t_philo *philo, char *msg);
+void	*routine(t_philo philo[MAX_PHILO]);
+void	*routine_cast(void *philo);
 void	check_must_eat(t_philo *philo, const int eat_needed);
-void 	check_death_with_forks(t_philo *philo);
+void	check_death_with_fork(t_philo *philo);
 void	alloc_all_var(char **dead, int **total_eat, pthread_mutex_t **mutex_te,
 			pthread_mutex_t **mutex_d);
 void	check_death(t_philo *philo);
-void	taken_fork(t_philo *philo, struct timeval begint, int mut_i);
+void	take_one_fork(t_philo *philo, int mut_i);
 int		ft_atoi(const char *str);
 char	valid_args(int ac, char **av);
 void	take_args(t_args *args, char **av, int ac);
@@ -90,10 +95,10 @@ void	init_mutex(t_fork mutexes[MAX_PHILO + 1], int count);
 int		ms(struct timeval tv);
 int		get_msinter(struct timeval s, struct timeval e);
 	// usleep personnalise (eating)
-void	useating(t_philo *philo, struct timeval s, struct timeval begint);
+void	useating(t_philo *philo, struct timeval s);
 	// usleep personnalise (sleeping)
-void	ussleeping(t_philo *philo, struct timeval s, struct timeval begint);
+void	ussleeping(t_philo *philo, struct timeval s);
 	// Tue le philosophe
-void	kill_philosopher(t_philo *philo, struct timeval tv);
+void	kill_philosopher(t_philo *philo);
 
 #endif
