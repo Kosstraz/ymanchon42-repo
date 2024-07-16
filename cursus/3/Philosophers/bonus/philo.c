@@ -6,14 +6,12 @@
 /*   By: ymanchon <ymanchon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 14:34:08 by ymanchon          #+#    #+#             */
-/*   Updated: 2024/07/16 18:19:49 by ymanchon         ###   ########.fr       */
+/*   Updated: 2024/07/16 19:01:44 by ymanchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "philo_bonus.h"
 
-// 0 vivant
-// 1 mort
 char	thinking(t_philo *philo, struct timeval last_eat)
 {
 	struct timeval	think;
@@ -60,58 +58,60 @@ inline void	*routine(t_philo philo[MAX_PHILO])
 	return (NULL);
 }
 
-char	init_struct_philo(t_philo philo[MAX_PHILO],
-		t_fork mutexes[MAX_PHILO + 1], t_args args)
+char	init_struct_philo(t_philo philo[MAX_PHILO], sem_t *sems[MAX_PHILO + 1])
 {
-	int				i;
+	sem_t	*sem_te;
+	sem_t	*sem_d;
+	sem_t	*sem_pf;
+	int		i;
 
 	i = -1;
-	init_mutex(mutexes, args.n);
+	init_sem(sems, philo[0].args.n, &sem_te, &sem_d);
+	init_sem_for_printf(&sem_pf);
 	if (alloc_all_var(philo))
 		return (1);
-	pthread_mutex_init(philo[0].mutex_d, NULL);
-	pthread_mutex_init(philo[0].mutex_te, NULL);
-	pthread_mutex_init(philo[0].mutex_pf, NULL);
 	gettimeofday(&philo[0].start_time, NULL);
-	while (++i < args.n)
+	while (++i < philo[0].args.n)
 	{
-		philo[i].mutex_te = philo[0].mutex_te;
-		philo[i].mutex_d = philo[0].mutex_d;
-		philo[i].mutex_pf = philo[0].mutex_pf;
+		philo[i].sem_te = sem_te;
+		philo[i].sem_d = sem_d;
+		philo[i].sem_pf = sem_pf;
 		philo[i].total_eat = philo[0].total_eat;
 		philo[i].dead = philo[0].dead;
 		philo[i].index = i;
-		philo[i].args = args;
+		philo[i].args = philo[0].args;
 		philo[i].start_time = philo[0].start_time;
-		philo[i].d.mutexes = mutexes;
-		pthread_create(&philo[i].d.threads, NULL, &routine_cast,
-			(void *)&philo[i]);
+		philo[i].d.sems = sems;
 	}
 	return (0);
 }
 
 void	philosophers(t_philo philo[MAX_PHILO], t_args args)
 {
-	t_fork			mutexes[MAX_PHILO + 1];
-	void			*thread_return;
-	int				i;
+	sem_t		*sems[MAX_PHILO + 1];
+	const char	*sems_name;
+	int			pids[MAX_PHILO];
+	int			i;
 
-	i = 0;
-	if (init_struct_philo(philo, mutexes, args))
+	philo[0].args = args;
+	if (init_struct_philo(philo, sems))
 		return ;
-	i = 0;
-	while (i < args.n)
-		pthread_join(philo[i++].d.threads, &thread_return);
+	memset(pids, 0, MAX_PHILO);
 	i = -1;
 	while (++i < args.n)
-		pthread_mutex_destroy(&philo[i].d.mutexes[i]);
-	pthread_mutex_destroy(philo->mutex_d);
-	pthread_mutex_destroy(philo->mutex_te);
-	free(philo->mutex_d);
-	free(philo->mutex_te);
-	free(philo->mutex_pf);
-	free(philo->total_eat);
-	free(philo->dead);
+		launch_routine(&philo[i], &pids[i]);
+	i = 0;
+	while (i < args.n)
+		waitpid(pids[i++], NULL, 0);
+	i = -1;
+	while (++i < args.n)
+	{
+		sems_name = create_name(i);
+		sem_close(sems[i]);
+		sem_unlink(sems_name);
+		free((void *)sems_name);
+	}
+	close_sem_te_d(philo->sem_te, philo->sem_d, philo->sem_pf, philo);
 }
 
 int	main(int ac, char **av)

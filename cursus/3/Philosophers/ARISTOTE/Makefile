@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ymanchon <ymanchon@student.42.fr>          +#+  +:+       +#+         #
+#    By: bama <bama@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/13 16:21:19 by ymanchon          #+#    #+#              #
-#    Updated: 2024/07/13 17:04:54 by ymanchon         ###   ########.fr        #
+#    Updated: 2024/07/14 21:03:11 by bama             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,9 @@ NAME = aristote
 
 CC =	cc
 
-SRCS =	./srcs/ft_split.c \
+SRCS =	./srcs/utils.c \
+		./srcs/signals_handle.c \
+		./srcs/ft_split.c \
 		./srcs/ft_strjoin.c \
 		./srcs/freemem.c \
 		./srcs/get_next_line_utils.c \

@@ -1,50 +1,32 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   aristote.c                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ymanchon <ymanchon@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/12 18:14:18 by ymanchon          #+#    #+#             */
-/*   Updated: 2024/07/14 16:27:05 by ymanchon         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "Aristote.h"
-
-int	ms(struct timeval tv)
-{
-	return ((tv.tv_sec) * 1000 + (tv.tv_usec) / 1000);
-}
 
 // 0 died
 // 1 alive
-char	check_philo_status(int fd, t_args args)
+char	check_philo_status(int fd, t_args args, char **line)
 {
 	struct timeval	s;
 	struct timeval	e;
-	char			*gnl;
 	int				waiting_time;
 
 	waiting_time = WAITING_TIME;
 	gettimeofday(&s, NULL);
 	e = s;
-	gnl = get_next_line(fd);
+	*line = get_next_line(fd);
 	while (ms(e) - ms(s) <= waiting_time + args.dtime)
 	{
 		gettimeofday(&e, NULL);
-		if (gnl && strstr(gnl, "died"))
+		if (*line && strstr(*line, "died"))
 		{
-			printf("%s", gnl);
+			printf("%s", *line);
 			return (0);
 		}
-		free(gnl);
-		gnl = get_next_line(fd);
-		if (!gnl)
+		free(*line);
+		*line = get_next_line(fd);
+		if (!*line)
 		{
 			close(fd);
 			fd = open(TMP_FILE, O_RDONLY, PERM);
-			gnl = get_next_line(fd);
+			*line = get_next_line(fd);
 		}
 		if (!(ms(e) - ms(s) <= WAITING_TIME + args.dtime) &&
 			(args.dtime <= args.etime + args.stime || args.n == 1) &&
@@ -54,17 +36,27 @@ char	check_philo_status(int fd, t_args args)
 	return (1);
 }
 
-void	check_test_result(t_args args, int philo_status, char *param)
+void	check_test_result(t_args args, int philo_status, char *param, char *line)
 {
 	if (philo_status == 0)
 	{
 		if (args.n == 1)
-			printf("%s%sSUCCESS%s\n", BOLD, FORE_GREEN, DEFAULT);
+		{
+			if (atoi(line) < 0 || atoi(line) > 1)
+				printf("%s%sFAILED not dead at time (0ms)%s\n", BOLD, FORE_RED, DEFAULT);
+			else
+				printf("%s%sSUCCESS%s\n", BOLD, FORE_GREEN, DEFAULT);
+		}
+		else if ((atoi(line) < args.dtime - 10 && atoi(line) > args.dtime + 10) ||
+				 (atoi(line) < args.dtime + args.etime - 10 && atoi(line) > args.dtime + args.etime + 10))
+			printf("%s%sFAILED not dead at time (~%dms or ~%d)%s\n", BOLD, FORE_YELLOW, args.dtime, args.dtime + args.etime, DEFAULT);
 		else if (!strcmp("310 200 100", &param[sd_i(param) + 1]) &&
 				 args.n > 2)
 			printf("%s%sSUCCESS%s\n", BOLD, FORE_GREEN, DEFAULT);
 		else if (args.dtime > args.etime + args.stime)
 			printf("%s%sFAILED was supposed to live%s\n", BOLD, FORE_RED, DEFAULT);
+		else if (args.dtime == args.etime + args.stime)
+			printf("%s%sFAILED (eating time + sleeping time = time to die --> so it can die like live)%s\n", BOLD, FORE_YELLOW, DEFAULT);
 		else
 			printf("%s%sSUCCESS%s\n", BOLD, FORE_GREEN, DEFAULT);
 	}
@@ -77,6 +69,8 @@ void	check_test_result(t_args args, int philo_status, char *param)
 			printf("%s%sFAILED not dead%s\n", BOLD, FORE_RED, DEFAULT);
 		else if (args.dtime > args.etime + args.stime)
 			printf("%s%sSUCCESS%s\n", BOLD, FORE_GREEN, DEFAULT);
+		else if (args.dtime == args.etime + args.stime)
+			printf("%s%sSUCCESS%s\n", BOLD, FORE_YELLOW, DEFAULT);
 		else
 			printf("%s%sFAILED not dead%s\n", BOLD, FORE_RED, DEFAULT);
 	}
@@ -108,10 +102,13 @@ void	do_tests(int count, char **params)
 			}
 			else
 			{
+				char	*line;
+
 				get_args(params[i], &args);
-				philo_status = check_philo_status(fd, args);
-				check_test_result(args, philo_status, params[i]);
+				philo_status = check_philo_status(fd, args, &line);
+				check_test_result(args, philo_status, params[i], line);
 				kill(philo_processus, SIGKILL);
+				free(line);
 				close(fd);
 				remove(TMP_FILE);
 			}
@@ -138,6 +135,18 @@ char	**set_def_params()
 	join = ft_strjoin_free(join, TEST_DEFAULT5);
 	join = ft_strjoin_free(join, "|");
 	join = ft_strjoin_free(join, TEST_DEFAULT6);
+	join = ft_strjoin_free(join, "|");
+	join = ft_strjoin_free(join, TEST_DEFAULT7);
+	join = ft_strjoin_free(join, "|");
+	join = ft_strjoin_free(join, TEST_DEFAULT8);
+	join = ft_strjoin_free(join, "|");
+	join = ft_strjoin_free(join, TEST_DEFAULT9);
+	join = ft_strjoin_free(join, "|");
+	join = ft_strjoin_free(join, TEST_DEFAULT10);
+	join = ft_strjoin_free(join, "|");
+	join = ft_strjoin_free(join, TEST_DEFAULT11);
+	join = ft_strjoin_free(join, "|");
+	join = ft_strjoin_free(join, TEST_DEFAULT12);
 	ret = ft_split(join, '|');
 	free(join);
 	return (ret);
@@ -172,6 +181,7 @@ int	main(int ac, char **av)
 	char	**params;
 	int		count;
 
+	signal(SIGSEGV, seghandle_);
 	count = 1;
 	default_params = 1;
 	if (ac >= 2)
