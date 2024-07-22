@@ -6,7 +6,7 @@
 /*   By: bama <bama@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 22:49:01 by bama              #+#    #+#             */
-/*   Updated: 2024/07/22 01:29:10 by bama             ###   ########.fr       */
+/*   Updated: 2024/07/23 00:01:22 by bama             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,30 @@ void PhoneBook::Add(const Contact &contact)
 	this->contacts[i] = contact;
 }
 
+std::string formatString(const std::string& str)
+{
+	std::size_t	len;
+
+	len = str.length();
+    if (len > 10)
+	{
+        std::string formattedStr = str.substr(0, 10);
+        formattedStr.append(str.length() - 10, '.');
+        return (formattedStr);
+    }
+    return (str);
+}
+
 void	PhoneBook::ShowContact(const Contact &contact, int i)
 {
 	std::string	get;
 
-//std::setfill('.') << std::setw(10)
-	std::cout << std::setfill('.') << std::setw(10) << "Index: " << i << std::endl;
-	std::cout << "Prénom: " << contact.GetFirstName() << std::endl;
-	std::cout << "Nom: " << contact.GetFirstName() << std::endl;
-	std::cout << "Surnom: " << contact.GetFirstName() << std::endl;
+	std::cout << "Index: " << i << std::endl;
+	std::cout << "Prénom: " << formatString(contact.GetFirstName()) << "|";
+	std::cout << "Nom: " << formatString(contact.GetLastName()) << "|";
+	std::cout << "Surnom: " << formatString(contact.GetNickName()) << "|";
+	std::cout << "Numéro: " << formatString(contact.GetPhoneNumber()) << "|";
+	std::cout << "Secret sombre: " << formatString(contact.GetDarkestSecret()) << "|";
 }
 
 bool	PhoneBook::Search(int index)
