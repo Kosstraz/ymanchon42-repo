@@ -6,7 +6,7 @@
 #    By: bama <bama@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/13 16:21:19 by ymanchon          #+#    #+#              #
-#    Updated: 2024/07/15 23:01:55 by bama             ###   ########.fr        #
+#    Updated: 2024/07/22 00:58:22 by bama             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ NAME = awesome_phone_back
 
 CXX =	c++
 
-SRCS =	./AwesomePhoneBack.cpp \
+SRCS =	./Main.cpp \
 		./PhoneBook.cpp \
 		./Contact.cpp \
 

@@ -1,26 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   AwesomePhoneBack.cpp                               :+:      :+:    :+:   */
+/*   AwesomePhoneBook.h                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bama <bama@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/15 22:26:58 by bama              #+#    #+#             */
-/*   Updated: 2024/07/15 23:02:58 by bama             ###   ########.fr       */
+/*   Created: 2024/07/15 22:49:45 by bama              #+#    #+#             */
+/*   Updated: 2024/07/22 00:56:31 by bama             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <iostream>
-#include <string.h>
+#ifndef AWESOME_PHONE_BACK_H
+#define AWESOME_PHONE_BACK_H
 
-int main(int ac, char **av)
-{
-	std::string	input;
+# include "Contact.hpp"
+# include "PhoneBook.hpp"
 
-	while (1)
-	{
-		std::cin >> input;
-		std::cout << input << std::endl;
-	}
-	return (0);
-}
+#endif
